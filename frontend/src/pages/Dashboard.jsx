@@ -4,6 +4,7 @@ import { get } from "../utils/requests";
 import { useEffect, useState } from "react";
 import NavBar from "./components/Navbar";
 import AddWorkshop from "./components/AddWorkshop";
+import WorkshopTable from "./components/WorkshopTable";
 
 // Pass User
 const Dashboard = () => {
@@ -14,8 +15,8 @@ const Dashboard = () => {
   useEffect(() => {
     const T = async () => {
       const user = await get(`${API_URL}/api/user`);
-      setUser(user.user);
       const ilist = await get(`${API_URL}/api/workshop/instituteList`);
+      setUser(user.user);
       setInstituteList(ilist.instituteList);
     };
     T();
@@ -29,6 +30,9 @@ const Dashboard = () => {
       {modal && (
         <AddWorkshop setModal={setModal} instituteList={instituteList} />
       )}
+      <div>
+        <WorkshopTable />
+      </div>
     </div>
   );
 };
