@@ -58,7 +58,7 @@ const authorizeUser = async (token) => {
 
 const login = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body.credential) {
       const user = await authorizeUser(req.body.credential);
       if (user.error) {

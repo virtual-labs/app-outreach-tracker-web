@@ -3,6 +3,7 @@ const {
   SPREADSHEET_ID,
   SPREADSHEET_USER_TAB_RANGE,
   SPREADSHEET_INSTITUTE_TAB_RANGE,
+  SPREADSHEET_WORKSHOP_TAB_RANGE,
 } = require("../secrets/spreadsheet");
 
 const getDataFromSheet = async (spreadsheetId, range, req = null) => {
@@ -107,4 +108,71 @@ const appendIntoSheet = async (row, spreadsheetId, range) => {
   }
 };
 
-module.exports = { getUsersList, instituteList, appendIntoSheet };
+const getLinkAndName = (obj) => {
+  let link = "";
+  let name = "";
+  if (!obj.userEnteredValue) return { link, name };
+  if (obj.userEnteredValue.stringValue) {
+    name = obj.userEnteredValue.stringValue.trim();
+  }
+  if (obj.userEnteredValue.formulaValue) {
+    name = obj.userEnteredValue.formulaValue.trim();
+    name = name.split('"');
+    name = name[name.length - 2];
+  }
+  if (obj.userEnteredValue.numberValue) {
+    return {
+      link,
+      number: obj.userEnteredValue.numberValue,
+    };
+  }
+  if (obj.hyperlink) {
+    link = obj.hyperlink;
+  }
+  return { link, name };
+};
+
+const getWorkshopsList = async (role, email) => {
+  let { readData: workshopData, rawData } = await getDataFromSheet(
+    SPREADSHEET_ID,
+    SPREADSHEET_WORKSHOP_TAB_RANGE,
+    "RAW"
+  );
+  const workshopsList = workshopData.data.sheets[0].data[0].rowData;
+
+  let workshops = [];
+
+  workshopsList.forEach((workshop, i) => {
+    if (i === 0) return;
+    let values = workshop.values;
+    let instituteName = values[0].userEnteredValue.stringValue.trim();
+    let email = values[1].userEnteredValue.stringValue.trim();
+    let createDate = rawData[i][2];
+    let workshopDate = rawData[i][3];
+    let count = values[4].userEnteredValue.numberValue;
+    let { link: workshopLink, name: _ } = getLinkAndName(values[5]);
+
+    workshops.push({
+      "S. No.": i,
+      "Institute Name": instituteName,
+      Email: email,
+      "Entry Date": createDate,
+      "Workshop date": workshopDate,
+      Participants: count,
+      "Link To workshop PDF": workshopLink,
+    });
+  });
+
+  if (role === "coordinator") {
+    workshops = workshops.filter((workshop) => workshop.Email === email);
+  }
+
+  return workshops;
+};
+
+module.exports = {
+  getUsersList,
+  instituteList,
+  appendIntoSheet,
+  getWorkshopsList,
+};

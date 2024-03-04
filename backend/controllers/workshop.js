@@ -1,4 +1,8 @@
-const { instituteList, appendIntoSheet } = require("../utils/sheet");
+const {
+  instituteList,
+  appendIntoSheet,
+  getWorkshopsList,
+} = require("../utils/sheet");
 const {
   SPREADSHEET_ID,
   SPREADSHEET_WORKSHOP_TAB_RANGE,
@@ -32,4 +36,12 @@ const addWorkshop = async (req, res) => {
 
   return res.json({ msg: "Added successfully" });
 };
-module.exports = { getInstituteList, addWorkshop };
+
+const getWorkshops = async (req, res) => {
+  const role = req.user.role;
+  const email = req.user.email;
+  const workshops = await getWorkshopsList(role, email);
+  return res.json({ workshops });
+};
+
+module.exports = { getInstituteList, addWorkshop, getWorkshops };
