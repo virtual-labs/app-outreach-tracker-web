@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
-import "./css/index.css";
 import "./css/App.css";
+import "./css/index.css";
 
 function App() {
   const [user, setUser] = useState({});
@@ -35,9 +35,7 @@ function App() {
         />
         <Route
           path="/dashboard"
-          element={
-            credential && user?.email ? <Dashboard /> : <Navigate to="/" />
-          }
+          element={credential ? <Dashboard /> : <Navigate to="/" />}
         />
       </Routes>
     </BrowserRouter>

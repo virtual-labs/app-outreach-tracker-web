@@ -2,7 +2,9 @@ const {
   instituteList,
   appendIntoSheet,
   getWorkshopsList,
+  getTemplatesList,
 } = require("../utils/sheet");
+
 const {
   SPREADSHEET_ID,
   SPREADSHEET_WORKSHOP_TAB_RANGE,
@@ -21,17 +23,22 @@ const getInstituteList = async (req, res) => {
   return res.json({ instituteList: list });
 };
 
+const getFormattedRow = (rowData) => {
+  return rowData.map((entry) => {
+    if (entry.type === "date") {
+      return getFormattedDate(new Date(entry.value));
+    }
+    if (entry.type === "link") {
+      return `=HYPERLINK("${entry.value}", "Link")`;
+    }
+    return entry.value;
+  });
+};
+
 const addWorkshop = async (req, res) => {
-  const { date, ins, count, url } = req.body;
-  const { user } = req;
-
-  let w_date = getFormattedDate(new Date(date));
-  let c_date = getFormattedDate(new Date());
-
-  const row = [
-    [ins, user.email, c_date, w_date, count, `=HYPERLINK("${url}", "Link")`],
-  ];
-
+  const rowData = req.body;
+  const r = getFormattedRow(rowData);
+  const row = [r];
   await appendIntoSheet(row, SPREADSHEET_ID, SPREADSHEET_WORKSHOP_TAB_RANGE);
 
   return res.json({ msg: "Added successfully" });
@@ -40,8 +47,13 @@ const addWorkshop = async (req, res) => {
 const getWorkshops = async (req, res) => {
   const role = req.user.role;
   const email = req.user.email;
-  const workshops = await getWorkshopsList(role, email);
-  return res.json({ workshops });
+  const data = await getWorkshopsList(role, email);
+  return res.json(data);
 };
 
-module.exports = { getInstituteList, addWorkshop, getWorkshops };
+const getTemplates = async (req, res) => {
+  const templates = await getTemplatesList();
+  return res.json(templates);
+};
+
+module.exports = { getInstituteList, addWorkshop, getWorkshops, getTemplates };

@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -3002,4 +2998,15 @@ textarea.w-select {
 
 .role.admin {
   background-color: #036456;
+}
+
+.institute {
+  background-color: #2e8f7f;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.atable-parent div:first-child {
+  overflow: auto !important;
 }

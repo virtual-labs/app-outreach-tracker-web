@@ -4,6 +4,7 @@ const {
   SPREADSHEET_USER_TAB_RANGE,
   SPREADSHEET_INSTITUTE_TAB_RANGE,
   SPREADSHEET_WORKSHOP_TAB_RANGE,
+  SPREADSHEET_TEMPLATES_TAB_RANGE,
 } = require("../secrets/spreadsheet");
 
 const getDataFromSheet = async (spreadsheetId, range, req = null) => {
@@ -51,14 +52,15 @@ const getUsersList = async () => {
 
   usersList.forEach((user, i) => {
     if (i === 0) return;
-    for (let j = 0; j < user.values.length; j++) {
-      if (user.values[j].userEnteredValue) {
-        if (j === 0) {
-          admins.push(user.values[j].userEnteredValue.stringValue);
-        } else if (j === 1) {
-          coordinators.push(user.values[j].userEnteredValue.stringValue);
-        }
-      }
+    const fuser = {};
+    fuser.email = user.values[0].userEnteredValue.stringValue;
+    fuser.role = user.values[1].userEnteredValue.stringValue;
+    fuser.institute = user.values[2].userEnteredValue.stringValue;
+
+    if (fuser.role === "Admin") {
+      admins.push(fuser);
+    } else if (fuser.role === "Coordinator") {
+      coordinators.push(fuser);
     }
   });
   return { admins, coordinators };
@@ -132,6 +134,78 @@ const getLinkAndName = (obj) => {
   return { link, name };
 };
 
+const getColumns = (values) => {
+  return values.map((col) => {
+    if (col.userEnteredValue) {
+      const value = col.userEnteredValue.stringValue.trim();
+      const lowerValue = value.toLowerCase();
+      if (lowerValue.includes("url") || lowerValue.includes("link")) {
+        return { value, type: "link" };
+      }
+      if (lowerValue.includes("date")) {
+        return { value, type: "date" };
+      }
+      if (
+        lowerValue.includes("number") ||
+        lowerValue.includes("count") ||
+        lowerValue.includes("participants") ||
+        lowerValue.includes("no.") ||
+        lowerValue.includes("record")
+      ) {
+        return { value, type: "number" };
+      }
+
+      if (lowerValue.includes("institute")) {
+        return { value, type: "select" };
+      }
+
+      return { value, type: "string" };
+    }
+  });
+};
+
+const getRow = (values, columns, rawData) => {
+  let rowObj = {};
+  columns.forEach((col, index) => {
+    if (!values[index]) {
+      rowObj[col.value] = "";
+      return;
+    }
+
+    if (col.type === "link") {
+      rowObj[col.value] = getLinkAndName(values[index]).link;
+      return;
+    }
+    if (col.type === "date") {
+      rowObj[col.value] = rawData[index];
+      return;
+    }
+    if (col.type === "number") {
+      rowObj[col.value] = values[index].userEnteredValue.numberValue;
+      return;
+    }
+    rowObj[col.value] = values[index].userEnteredValue.stringValue;
+  });
+  return rowObj;
+};
+
+const getTableData = (dataList, rawData) => {
+  let rows = [];
+  let columns = [];
+
+  dataList.forEach((data, i) => {
+    if (i === 0) {
+      columns = getColumns(data.values);
+      return;
+    }
+    let values = data.values;
+    let rowObj = getRow(values, columns, rawData[i]);
+    rows.push(rowObj);
+  });
+
+  return { rows, columns };
+};
+
 const getWorkshopsList = async (role, email) => {
   let { readData: workshopData, rawData } = await getDataFromSheet(
     SPREADSHEET_ID,
@@ -139,35 +213,23 @@ const getWorkshopsList = async (role, email) => {
     "RAW"
   );
   const workshopsList = workshopData.data.sheets[0].data[0].rowData;
+  let { rows: workshops, columns } = getTableData(workshopsList, rawData);
 
-  let workshops = [];
-
-  workshopsList.forEach((workshop, i) => {
-    if (i === 0) return;
-    let values = workshop.values;
-    let instituteName = values[0].userEnteredValue.stringValue.trim();
-    let email = values[1].userEnteredValue.stringValue.trim();
-    let createDate = rawData[i][2];
-    let workshopDate = rawData[i][3];
-    let count = values[4].userEnteredValue.numberValue;
-    let { link: workshopLink, name: _ } = getLinkAndName(values[5]);
-
-    workshops.push({
-      "S. No.": i,
-      "Institute Name": instituteName,
-      Email: email,
-      "Entry Date": createDate,
-      "Workshop date": workshopDate,
-      Participants: count,
-      "Link To workshop PDF": workshopLink,
-    });
-  });
-
-  if (role === "coordinator") {
+  if (role.toLowerCase() === "coordinator") {
     workshops = workshops.filter((workshop) => workshop.Email === email);
   }
 
-  return workshops;
+  return { rows: workshops, columns };
+};
+
+const getTemplatesList = async () => {
+  let { readData: templatesData, rawData } = await getDataFromSheet(
+    SPREADSHEET_ID,
+    SPREADSHEET_TEMPLATES_TAB_RANGE,
+    "RAW"
+  );
+  const templatesList = templatesData.data.sheets[0].data[0].rowData;
+  return getTableData(templatesList, rawData);
 };
 
 module.exports = {
@@ -175,4 +237,5 @@ module.exports = {
   instituteList,
   appendIntoSheet,
   getWorkshopsList,
+  getTemplatesList,
 };

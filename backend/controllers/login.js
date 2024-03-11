@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
 const { getUsersList } = require("../utils/sheet");
 
@@ -27,31 +26,26 @@ const authorizeUser = async (token) => {
   const email = profile?.email;
 
   const { admins, coordinators } = await getUsersList();
-  if (!admins.includes(email) && !coordinators.includes(email)) {
+  const adminUser = admins.find((admin) => admin.email === email);
+  const coordinatorUser = coordinators.find(
+    (coordinator) => coordinator.email === email
+  );
+  if (!adminUser && !coordinatorUser) {
     return { error: true, message: "Unauthorized" };
   }
+
+  const finalUser = adminUser || coordinatorUser;
 
   let user = {
     firstName: profile?.given_name,
     lastName: profile?.family_name,
     picture: profile?.picture,
     email: profile?.email,
-    token: jwt.sign({ email: profile?.email }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    }),
   };
-
-  if (admins.includes(email)) {
-    user = {
-      ...user,
-      role: "admin",
-    };
-  } else if (coordinators.includes(email)) {
-    user = {
-      ...user,
-      role: "coordinator",
-    };
-  }
+  user = {
+    ...user,
+    ...finalUser,
+  };
 
   return user;
 };
