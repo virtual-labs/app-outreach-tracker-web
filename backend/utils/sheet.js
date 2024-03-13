@@ -7,6 +7,13 @@ const {
   SPREADSHEET_TEMPLATES_TAB_RANGE,
 } = require("../secrets/spreadsheet");
 
+const tableSheetMap = {
+  workshop: SPREADSHEET_WORKSHOP_TAB_RANGE,
+  template: SPREADSHEET_TEMPLATES_TAB_RANGE,
+  user: SPREADSHEET_USER_TAB_RANGE,
+  institute: SPREADSHEET_INSTITUTE_TAB_RANGE,
+};
+
 const getDataFromSheet = async (spreadsheetId, range, req = null) => {
   try {
     const auth = new google.auth.GoogleAuth({
@@ -232,10 +239,104 @@ const getTemplatesList = async () => {
   return getTableData(templatesList, rawData);
 };
 
+const getUsers_ = async () => {
+  let { readData: usersData, rawData } = await getDataFromSheet(
+    SPREADSHEET_ID,
+    SPREADSHEET_USER_TAB_RANGE,
+    "RAW"
+  );
+  const usersList = usersData.data.sheets[0].data[0].rowData;
+  return getTableData(usersList, rawData);
+};
+
+const getInstitutes_ = async () => {
+  let { readData: institutesData, rawData } = await getDataFromSheet(
+    SPREADSHEET_ID,
+    SPREADSHEET_INSTITUTE_TAB_RANGE,
+    "RAW"
+  );
+  const institutesList = institutesData.data.sheets[0].data[0].rowData;
+  return getTableData(institutesList, rawData);
+};
+
+const deleteFromSheet = async (rowIndex, table) => {
+  try {
+    const auth = new google.auth.GoogleAuth({
+      keyFile: "./secrets/service-account-secret.json",
+      scopes: "https://www.googleapis.com/auth/spreadsheets",
+    });
+    const authClientObject = await auth.getClient();
+    const googleSheetsInstance = google.sheets({
+      version: "v4",
+      auth: authClientObject,
+    });
+
+    const spreadsheet = await googleSheetsInstance.spreadsheets.get({
+      spreadsheetId: SPREADSHEET_ID,
+    });
+    const sheets = spreadsheet.data.sheets;
+    const sheet = sheets.find(
+      (s) => s.properties.title === tableSheetMap[table]
+    );
+    const sheetId = sheet.properties.sheetId;
+
+    const result = await googleSheetsInstance.spreadsheets.batchUpdate({
+      spreadsheetId: SPREADSHEET_ID,
+      resource: {
+        requests: [
+          {
+            deleteDimension: {
+              range: {
+                sheetId: sheetId,
+                dimension: "ROWS",
+                startIndex: rowIndex,
+                endIndex: rowIndex + 1,
+              },
+            },
+          },
+        ],
+      },
+    });
+    return result.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+
+const updateRow = async (spreadsheetId, sheetName, data, rowIndex) => {
+  const sheetsAuth = new google.auth.GoogleAuth({
+    keyFile: "./secrets/service-account-secret.json",
+    scopes: "https://www.googleapis.com/auth/spreadsheets",
+  });
+  const authClient = await sheetsAuth.getClient();
+  try {
+    const rows = [data];
+
+    await google.sheets("v4").spreadsheets.values.update({
+      auth: authClient,
+      spreadsheetId,
+      range: `${sheetName}!A${rowIndex}:Z${rowIndex}`,
+      valueInputOption: "USER_ENTERED",
+      resource: {
+        majorDimension: "ROWS",
+        values: rows,
+      },
+    });
+  } catch (error) {
+    console.error("Error updating row:", error);
+    throw error;
+  }
+};
+
 module.exports = {
   getUsersList,
   instituteList,
   appendIntoSheet,
   getWorkshopsList,
   getTemplatesList,
+  getUsers_,
+  getInstitutes_,
+  deleteFromSheet,
+  updateRow,
 };

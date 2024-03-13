@@ -35,3 +35,41 @@ div[role="row"]:hover {
 .host-req {
     z-index: 2147483647 !important;
 }
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: large;
+}
+
+.delete-button:hover {
+    background-color: #d0372c;
+}
+
+.delete-button:active {
+    background-color: #87170f;
+}
+
+.edit-button {
+    background-color: #00a38a;
+    color: white;
+    border: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: large;
+}
+
+.edit-button:hover {
+    background-color: #007d6d;
+}
+
+.edit-button:active {
+    background-color: #005a52;
+}

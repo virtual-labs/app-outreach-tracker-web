@@ -5,19 +5,48 @@ import { useEffect, useState } from "react";
 import NavBar from "./components/Navbar";
 import Table from "./components/Table";
 import "../index.css";
+import useStore from "../hooks/useStore";
+
+const TABLES = [
+  {
+    name: ["workshop", ""],
+    endpoint: "getWorkshops",
+    postEndpoint: "addWorkshop",
+    editRole: "",
+  },
+  {
+    name: ["template"],
+    endpoint: "getTemplates",
+    postEndpoint: "addTemplates",
+    editRole: "Admin",
+  },
+  {
+    name: ["institute"],
+    endpoint: "getInstitutes",
+    postEndpoint: "addInstitute",
+    editRole: "Admin",
+  },
+  {
+    name: ["user"],
+    endpoint: "getUsers",
+    postEndpoint: "addUser",
+    editRole: "Admin",
+  },
+];
 
 // Pass User
 const Dashboard = () => {
-  const [user, setUser] = useState({});
+  const setUser = useStore((state) => state.setUser);
+  const setInstituteList = useStore((state) => state.setInstituteList);
   const [modal, setModal] = useState(false);
-  const [instituteList, setInstituteList] = useState([]);
+  // const [instituteList, setInstituteList] = useState([]);
   const [page, setPage] = useState("workshop");
 
   useEffect(() => {
     const T = async () => {
-      const user = await get(`${API_URL}/api/user`);
+      const user_ = await get(`${API_URL}/api/user`);
       const ilist = await get(`${API_URL}/api/workshop/instituteList`);
-      setUser(user.user);
+      setUser(user_.user);
       setInstituteList(ilist.instituteList);
     };
     T();
@@ -26,7 +55,6 @@ const Dashboard = () => {
     <div className="flex flex-col h-screen w-screen overflow-hidden">
       <div className="flex">
         <NavBar
-          user={user}
           setModal={setModal}
           modal={modal}
           setPage={setPage}
@@ -34,27 +62,23 @@ const Dashboard = () => {
         />
       </div>
       <div className="flex flex-1 flex-col overflow-hidden">
-        {page === "workshop" || page === "" ? (
-          <Table
-            endpoint={`${API_URL}/api/workshop/getWorkshops`}
-            postEndpoint={`${API_URL}/api/workshop/addWorkshop`}
-            title={page}
-            modal={modal}
-            setModal={setModal}
-            instituteList={instituteList}
-          />
-        ) : null}
-
-        {page === "template" ? (
-          <Table
-            endpoint={`${API_URL}/api/workshop/getTemplates`}
-            postEndpoint={`${API_URL}/api/workshop/addTemplate`}
-            title={page}
-            modal={modal}
-            setModal={setModal}
-            instituteList={instituteList}
-          />
-        ) : null}
+        {TABLES.map((table) => {
+          if (table.name.includes(page)) {
+            return (
+              <Table
+                key={page}
+                endpoint={`${API_URL}/api/workshop/${table.endpoint}`}
+                postEndpoint={`${API_URL}/api/workshop/${table.postEndpoint}`}
+                deleteEndpoint={`${API_URL}/api/workshop/`}
+                title={page}
+                modal={modal}
+                setModal={setModal}
+                editRole={table.editRole}
+              />
+            );
+          }
+          return null;
+        })}
       </div>
     </div>
   );

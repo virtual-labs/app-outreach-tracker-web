@@ -5,6 +5,7 @@ import { API_URL, CLIENT_ID } from "../utils/config";
 import BackImg from "../media/introduction.webp";
 import "../index.css";
 import NavBar from "./components/Navbar";
+import ReactLoading from "react-loading";
 
 const Landing = () => {
   const { handleGoogle, loading, error } = useFetch(`${API_URL}/login`);
@@ -47,7 +48,14 @@ const Landing = () => {
             </p>
             <div className="w-full flex flex-col items-center justify-center">
               {loading ? (
-                <p>Loading...</p>
+                <p>
+                  <ReactLoading
+                    type="bars"
+                    color="white"
+                    width={40}
+                    className="flex"
+                  ></ReactLoading>
+                </p>
               ) : (
                 <div id="loginDiv" className="mt-8"></div>
               )}

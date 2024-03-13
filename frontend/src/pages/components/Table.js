@@ -1,31 +1,72 @@
 import DataTable from "react-data-table-component";
 import React from "react";
-import { get } from "../../utils/requests";
+import { get, delete_ } from "../../utils/requests";
 import { customStyles } from "../../utils/tableStyle";
 import { capitalizeFirstLetter } from "../../utils/utils";
 import AddModal from "./AddModal";
+import EditModal from "./EditModal";
+import ReactLoading from "react-loading";
+import useStore from "../../hooks/useStore";
+import EditIcon from "../../media/edit.png";
 
 function Table({
   title,
   endpoint,
   modal,
   setModal,
-  instituteList,
   postEndpoint,
+  editRole,
+  deleteEndpoint,
 }) {
+  const user = useStore((state) => state.user);
+
+  const [editObj, setEditObj] = React.useState(null);
   const [pending, setPending] = React.useState(true);
   const [rows, setRows] = React.useState([]);
   const [origRows, setOrigRows] = React.useState([]);
   const [columns, setColumns] = React.useState([]);
   const [rawColumns, setRawColumns] = React.useState([]);
 
+  const deleteEntry = async (index) => {
+    const conf = window.confirm("Are you sure you want to delete this entry?");
+    if (!conf) return;
+
+    try {
+      const resp = await delete_(`${deleteEndpoint}`, {
+        index,
+        table: title,
+      });
+      if (resp.error) throw resp.error;
+      alert(resp.msg);
+    } catch (err) {
+      alert(err);
+    } finally {
+      R();
+    }
+  };
+
+  const editEntry = (row) => {
+    setEditObj(row);
+  };
+
   const R = async () => {
     try {
+      setPending(true);
       const resp = await get(endpoint);
       let data = resp.rows;
 
-      const col_ = [{ value: "S. No", type: "number" }, ...resp.columns];
+      let col_ = [{ value: "S. No", type: "number" }, ...resp.columns];
+
       setRawColumns(col_);
+
+      if (editRole === "" || user.role === editRole) {
+        col_ = [{ value: "", action: "delete", type: "button" }, ...col_];
+      }
+
+      if (title === "workshop") {
+        col_ = [{ value: "", action: "edit", type: "button" }, ...col_];
+      }
+
       data = data.map((workshop, index) => {
         return { ...workshop, "S. No": index + 1 };
       });
@@ -41,11 +82,11 @@ function Table({
         );
         newColumns.push({
           name: capitalizeFirstLetter(colName),
-          selector: (row) => row[colName],
+          selector: (row) => row[colName || key.action],
           sortable: sortable,
           wrap: true,
           resizable: true,
-          width: `${200}px`,
+          width: colName.length ? `${200}px` : `${60}px`,
         });
       }
 
@@ -53,6 +94,15 @@ function Table({
 
       let rows_ = data.map((row, index) => {
         const newRow = {};
+        newRow["edit"] = (
+          <button className="edit-button" onClick={() => editEntry(row)}>
+            <img
+              style={{ width: "75%", height: "75%" }}
+              src={EditIcon}
+              alt="edit"
+            ></img>
+          </button>
+        );
         for (let key in row) {
           if (typeDict[key] === "link") {
             if (row[key] !== "") {
@@ -71,6 +121,15 @@ function Table({
             }
           } else newRow[key] = row[key];
         }
+        newRow["delete"] = (
+          <button
+            className="delete-button"
+            onClick={() => deleteEntry(row["S. No"])}
+          >
+            &times;
+          </button>
+        );
+
         return newRow;
       });
       setOrigRows(rows_);
@@ -91,7 +150,11 @@ function Table({
   const dateColumns = rawColumns.filter((col) => col.type === "date");
   const numberColumns = rawColumns.filter((col) => col.type === "number");
   const stringColumns = rawColumns.filter(
-    (col) => col.type !== "date" && col.type !== "number" && col.type !== "link"
+    (col) =>
+      col.type !== "date" &&
+      col.type !== "number" &&
+      col.type !== "link" &&
+      col.value !== ""
   );
 
   return (
@@ -99,13 +162,23 @@ function Table({
       {modal && (
         <AddModal
           setModal={setModal}
-          instituteList={instituteList}
           table={title_}
           columns_={rawColumns.slice(1)}
           postEndpoint={postEndpoint}
+          refreshFunc={R}
+        />
+      )}
+
+      {editObj && (
+        <EditModal
+          editObj={editObj}
+          setEditObj={setEditObj}
+          columns_={rawColumns.slice(1)}
+          refreshFunc={R}
         />
       )}
       <span className="text-xl p-2">{capitalizeFirstLetter(title_) + "s"}</span>
+      {title === "workshop" && <TotalBlock rows={rows} />}
       <div className="atable-parent flex flex-col w-full overflow-hidden">
         <DataTable
           columns={columns}
@@ -113,6 +186,9 @@ function Table({
           progressPending={pending}
           customStyles={customStyles}
           pagination
+          progressComponent={
+            <ReactLoading type={"bars"} width={40} color={"#28bfa4"} />
+          }
         />
         <div className=" m-2">
           <label>Filters</label>
@@ -144,6 +220,35 @@ function Table({
     </>
   );
 }
+
+const TotalBlock = ({ rows }) => {
+  const total_p = rows.reduce((acc, row) => {
+    return acc + row["Participants"];
+  }, 0);
+
+  const total = rows.length;
+
+  const total_r = rows.reduce((acc, row) => {
+    return acc + row["Usage Recorded"];
+  }, 0);
+
+  return (
+    <div className="flex flex-row justify-start p-2">
+      <div className="flex flex-col mx-2">
+        <span>Total Participants</span>
+        <span>{total_p}</span>
+      </div>
+      <div className="flex flex-col mx-2">
+        <span>Total Recorded</span>
+        <span>{total_r}</span>
+      </div>
+      <div className="flex flex-col mx-2">
+        <span>Total Workshops</span>
+        <span>{total}</span>
+      </div>
+    </div>
+  );
+};
 
 const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
   const dateFilters = [

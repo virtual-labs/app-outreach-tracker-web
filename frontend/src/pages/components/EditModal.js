@@ -7,47 +7,19 @@ import { post } from "../../utils/requests";
 import "../../css/App.css";
 import { capitalizeFirstLetter } from "../../utils/utils";
 import useStore from "../../hooks/useStore";
+import { API_URL } from "../../utils/config";
 
-const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
+const EditModal = ({ editObj, setEditObj, columns_, refreshFunc }) => {
   const instituteList = useStore((state) => state.instituteList);
 
-  let columns = columns_.map((col) => {
-    if (table === "workshop") {
-      if (col.value === "Date") {
-        col.disable = true;
-      }
-      if (col.value === "Email") {
-        col.disable = true;
-      }
-    }
-    if (table === "user") {
-      if (col.value === "Role") {
-        col.type = "select";
-      }
-    }
+  const index = editObj["S. No"];
 
-    if (table === "institute") {
-      if (col.value === "Institute Name") {
-        col.type = "string";
-      }
-    }
-    return col;
-  });
+  let columns = columns_;
 
   columns = columns.filter((col) => col.value !== "S. No");
 
   const getFormState = () => {
-    const obj = {};
-    for (let col of columns) {
-      const inst = JSON.parse(localStorage.getItem("user"))?.institute;
-      const email = JSON.parse(localStorage.getItem("user"))?.email;
-      if (col.type === "date") obj[col.value] = new Date();
-      else if (col.type === "number") obj[col.value] = 0;
-      else if (col.type === "select") obj[col.value] = inst || instituteList[0];
-      else if (col.value === "Email") obj[col.value] = email;
-      else obj[col.value] = "";
-    }
-    return obj;
+    return editObj;
   };
 
   const form = getFormState(columns);
@@ -179,17 +151,20 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
     if (valid) {
       setLoading(true);
 
-      const body = columns.map((col) => {
+      const row = columns.map((col) => {
         return { value: formState[col.value], type: col.type };
       });
-      const resp = await post(postEndpoint, body);
+      const resp = await post(API_URL + "/api/workshop/editWorkshop", {
+        row,
+        index: index + 1,
+      });
       setLoading(false);
-      setModal(false);
+      setEditObj(null);
       if (resp.error) {
         alert(resp.error);
       } else {
         refreshFunc();
-        alert(`${capitalizeFirstLetter(table)} added successfully`);
+        alert(`Edited successfully`);
       }
     } else {
       alert("Validation error");
@@ -201,11 +176,11 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
       <div className="flex flex-col bg-gray-200 h-auto w-3/5 add-lab-container p-2">
         <div className="flex flex-row">
           <h2 className="flex-1 text-2xl text-gray-600 mt-0">
-            {`${capitalizeFirstLetter(table)} Information`}
+            {`Edit Information`}
           </h2>
           <span
             className="text-2xl cursor-pointer hover:text-red-600 active:text-red-800"
-            onClick={() => setModal(false)}
+            onClick={() => setEditObj(null)}
           >
             &times;
           </span>
@@ -244,4 +219,4 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
   );
 };
 
-export default AddModal;
+export default EditModal;
