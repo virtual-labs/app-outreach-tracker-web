@@ -8,6 +8,11 @@ import EditModal from "./EditModal";
 import ReactLoading from "react-loading";
 import useStore from "../../hooks/useStore";
 import EditIcon from "../../media/edit.png";
+import Loading from "./Loading";
+import SummaryBlock from "./SummaryBlock";
+import FilterBlock from "./FilterBlock";
+
+const SORTABLE_TYPES = ["string", "date", "number", "select"];
 
 function Table({
   title,
@@ -19,7 +24,7 @@ function Table({
   deleteEndpoint,
 }) {
   const user = useStore((state) => state.user);
-
+  const [loading, setLoading] = React.useState(false);
   const [editObj, setEditObj] = React.useState(null);
   const [pending, setPending] = React.useState(true);
   const [rows, setRows] = React.useState([]);
@@ -32,6 +37,7 @@ function Table({
     if (!conf) return;
 
     try {
+      setLoading(true);
       const resp = await delete_(`${deleteEndpoint}`, {
         index,
         table: title,
@@ -41,6 +47,7 @@ function Table({
     } catch (err) {
       alert(err);
     } finally {
+      setLoading(false);
       R();
     }
   };
@@ -77,9 +84,7 @@ function Table({
         const colName = key.value;
         const colType = key.type;
         typeDict[colName] = colType;
-        const sortable = ["string", "date", "number", "select"].includes(
-          colType
-        );
+        const sortable = SORTABLE_TYPES.includes(colType);
         newColumns.push({
           name: capitalizeFirstLetter(colName),
           selector: (row) => row[colName || key.action],
@@ -147,16 +152,6 @@ function Table({
 
   const title_ = title === "" ? "Workshop" : title;
 
-  const dateColumns = rawColumns.filter((col) => col.type === "date");
-  const numberColumns = rawColumns.filter((col) => col.type === "number");
-  const stringColumns = rawColumns.filter(
-    (col) =>
-      col.type !== "date" &&
-      col.type !== "number" &&
-      col.type !== "link" &&
-      col.value !== ""
-  );
-
   return (
     <>
       {modal && (
@@ -169,6 +164,8 @@ function Table({
         />
       )}
 
+      {loading && <Loading />}
+
       {editObj && (
         <EditModal
           editObj={editObj}
@@ -178,7 +175,10 @@ function Table({
         />
       )}
       <span className="text-xl p-2">{capitalizeFirstLetter(title_) + "s"}</span>
-      {title === "workshop" && <TotalBlock rows={rows} />}
+      <div className="flex flex-row p-2">
+        <SummaryBlock rows={rows} visible={title === "workshop"} />
+        <FilterBlock {...{ rawColumns, setRows, origRows }} />
+      </div>
       <div className="atable-parent flex flex-col w-full overflow-hidden">
         <DataTable
           columns={columns}
@@ -190,261 +190,9 @@ function Table({
             <ReactLoading type={"bars"} width={40} color={"#28bfa4"} />
           }
         />
-        <div className=" m-2">
-          <label>Filters</label>
-          <div className="flex flex-row">
-            {dateColumns.length > 0 && (
-              <DateFilterPane
-                dateColumns={dateColumns}
-                setRows={setRows}
-                origRows={origRows}
-              />
-            )}
-            {numberColumns.length > 0 && (
-              <NumberFilterPane
-                numberColumns={numberColumns}
-                setRows={setRows}
-                origRows={origRows}
-              />
-            )}
-            {stringColumns.length > 0 && (
-              <StringFilterPane
-                stringColumns={stringColumns}
-                setRows={setRows}
-                origRows={origRows}
-              />
-            )}
-          </div>
-        </div>
       </div>
     </>
   );
 }
-
-const TotalBlock = ({ rows }) => {
-  const total_p = rows.reduce((acc, row) => {
-    return acc + row["Participants"];
-  }, 0);
-
-  const total = rows.length;
-
-  const total_r = rows.reduce((acc, row) => {
-    return acc + row["Usage Recorded"];
-  }, 0);
-
-  return (
-    <div className="flex flex-row justify-start p-2">
-      <div className="flex flex-col mx-2">
-        <span>Total Participants</span>
-        <span>{total_p}</span>
-      </div>
-      <div className="flex flex-col mx-2">
-        <span>Total Recorded</span>
-        <span>{total_r}</span>
-      </div>
-      <div className="flex flex-col mx-2">
-        <span>Total Workshops</span>
-        <span>{total}</span>
-      </div>
-    </div>
-  );
-};
-
-const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
-  const dateFilters = [
-    "last 7 days",
-    "last 30 days",
-    "last 90 days",
-    "last year",
-    "all",
-  ];
-  const [dateFilter, setDateFilter] = React.useState("all");
-  const [dateColumn, setDateColumn] = React.useState(
-    dateColumns[0] ? dateColumns[0].value : null
-  );
-
-  const applyDateFilter = (dateFilter_, dateColumn_) => {
-    if (dateFilter_ === "all") {
-      setRows(origRows);
-      return;
-    }
-    let date = new Date();
-    if (dateFilter_ === "last 7 days") date.setDate(date.getDate() - 7);
-    if (dateFilter_ === "last 30 days") date.setDate(date.getDate() - 30);
-    if (dateFilter_ === "last 90 days") date.setDate(date.getDate() - 90);
-    if (dateFilter_ === "last year") date.setFullYear(date.getFullYear() - 1);
-    setRows(
-      origRows.filter((row) => {
-        let rowDate = new Date(row[dateColumn_]);
-        return rowDate >= date;
-      })
-    );
-  };
-
-  return (
-    <>
-      {
-        <div className="p-2">
-          <label>Date</label>
-          <select
-            onChange={(e) => {
-              setDateColumn(e.target.value);
-              applyDateFilter(dateFilter, e.target.value);
-            }}
-          >
-            {dateColumns.map((col, index) => {
-              return (
-                <option
-                  key={index}
-                  value={col.value}
-                  selected={dateColumn === col.value}
-                >
-                  {col.value}
-                </option>
-              );
-            })}
-          </select>
-          <select
-            onChange={(e) => {
-              setDateFilter(e.target.value);
-              applyDateFilter(e.target.value, dateColumn);
-            }}
-          >
-            {dateFilters.map((filter, index) => {
-              return (
-                <option
-                  key={index}
-                  value={filter}
-                  selected={filter === dateFilter}
-                >
-                  {filter}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-      }
-    </>
-  );
-};
-
-const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
-  const [leftVal, setLeftVal] = React.useState(0);
-  const [rightVal, setRightVal] = React.useState(1000);
-  const [numberColumn, setNumberColumn] = React.useState(
-    numberColumns[0] ? numberColumns[0].value : null
-  );
-
-  const applyNumberFilter = (leftVal_, numberColumn_, rightVal_) => {
-    setRows(
-      origRows.filter((row) => {
-        return (
-          row[numberColumn_] >= leftVal_ && row[numberColumn_] <= rightVal_
-        );
-      })
-    );
-    setLeftVal(leftVal_);
-    setRightVal(rightVal_);
-    setNumberColumn(numberColumn_);
-  };
-
-  return (
-    <>
-      {
-        <div className="p-2">
-          <label>Number</label>
-          <input
-            type="number"
-            value={leftVal}
-            onChange={(e) =>
-              applyNumberFilter(e.target.value, numberColumn, rightVal)
-            }
-            className="mr-2 w-20"
-          />
-          {"<"}
-          <select
-            onChange={(e) =>
-              applyNumberFilter(leftVal, e.target.value, rightVal)
-            }
-            className="mx-2"
-          >
-            {numberColumns.map((col, index) => {
-              return (
-                <option
-                  key={index}
-                  value={col.value}
-                  selected={numberColumn === col.value}
-                >
-                  {col.value}
-                </option>
-              );
-            })}
-          </select>
-          {"<"}
-          <input
-            type="number"
-            value={rightVal}
-            onChange={(e) =>
-              applyNumberFilter(leftVal, numberColumn, e.target.value)
-            }
-            className="ml-2 w-20"
-          />
-        </div>
-      }
-    </>
-  );
-};
-
-const StringFilterPane = ({ stringColumns, setRows, origRows }) => {
-  const [str, setStr] = React.useState("");
-  const [stringColumn, setStringColumn] = React.useState(
-    stringColumns[0] ? stringColumns[0].value : null
-  );
-
-  const applyNumberFilter = (stringColumn_, val) => {
-    if (!stringColumn_) {
-      setRows(origRows);
-      return;
-    }
-    const lowerVal = val.toLowerCase();
-    setRows(
-      origRows.filter((row) => {
-        return row[stringColumn_].toLowerCase().includes(lowerVal);
-      })
-    );
-    setStr(val);
-    setStringColumn(stringColumn_);
-  };
-
-  return (
-    <>
-      {
-        <div className="p-2">
-          <label>String</label>
-          <select onChange={(e) => applyNumberFilter(e.target.value, str)}>
-            {stringColumns.map((col, index) => {
-              return (
-                <option
-                  key={index}
-                  value={col.value}
-                  selected={stringColumn === col.value}
-                >
-                  {col.value}
-                </option>
-              );
-            })}
-          </select>
-          <input
-            type="text"
-            value={str}
-            onChange={(e) => applyNumberFilter(stringColumn, e.target.value)}
-            className="ml-2"
-            placeholder="Search"
-          />
-        </div>
-      }
-    </>
-  );
-};
 
 export default Table;

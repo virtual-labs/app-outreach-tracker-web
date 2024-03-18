@@ -1,6 +1,5 @@
-const API_URL = "http://localhost:5050";
-const CLIENT_ID =
-  "235297947063-g1b35c68kqaodn1g5j4q3tnbg7jdmegs.apps.googleusercontent.com";
+const API_URL = process.env.REACT_APP_API_URL;
+const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function validateURL(url) {
   const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;

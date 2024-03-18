@@ -2990,6 +2990,7 @@ textarea.w-select {
   color: white;
   padding: 5px;
   border-radius: 5px;
+  font-size: 10px;
 }
 
 .role.coordinator {
@@ -3005,8 +3006,27 @@ textarea.w-select {
   color: white;
   padding: 5px;
   border-radius: 5px;
+  font-size: 10px;
 }
 
 .atable-parent div:first-child {
   overflow: auto !important;
+}
+
+.add-button {
+  background-color: #00ac8e;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.add-button:hover {
+  background-color: #00a38a;
+}
+
+.add-button:active {
+  background-color: #036456;
 }

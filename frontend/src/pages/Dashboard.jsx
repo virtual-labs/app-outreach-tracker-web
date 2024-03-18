@@ -34,12 +34,10 @@ const TABLES = [
   },
 ];
 
-// Pass User
 const Dashboard = () => {
   const setUser = useStore((state) => state.setUser);
   const setInstituteList = useStore((state) => state.setInstituteList);
   const [modal, setModal] = useState(false);
-  // const [instituteList, setInstituteList] = useState([]);
   const [page, setPage] = useState("workshop");
 
   useEffect(() => {

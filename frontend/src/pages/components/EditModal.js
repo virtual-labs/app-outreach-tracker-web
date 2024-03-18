@@ -14,7 +14,16 @@ const EditModal = ({ editObj, setEditObj, columns_, refreshFunc }) => {
 
   const index = editObj["S. No"];
 
-  let columns = columns_;
+  let columns = columns_.map((col) => {
+    if (col.value === "Date") {
+      col.disable = true;
+    }
+    if (col.value === "Email") {
+      col.disable = true;
+    }
+
+    return col;
+  });
 
   columns = columns.filter((col) => col.value !== "S. No");
 

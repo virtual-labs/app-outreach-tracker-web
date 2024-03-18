@@ -3,6 +3,8 @@ import NavImg from "../../media/download.png";
 import { capitalizeFirstLetter } from "../../utils/utils";
 import "../../index.css";
 import useStore from "../../hooks/useStore";
+import ProfileBox from "./ProfileBox";
+import PageBox from "./PageBox";
 
 const PAGES = [
   { name: "workshop", owner: ["workshop", ""], role: "" },
@@ -10,19 +12,6 @@ const PAGES = [
   { name: "institute", owner: ["institute"], role: "Admin" },
   { name: "user", owner: ["user"], role: "Admin" },
 ];
-
-const ToggleButton = ({ page, setPage, name }) => {
-  const capitalizedName = capitalizeFirstLetter(name);
-
-  return (
-    <button
-      className={`insert-doc-button ${page === name ? "active" : ""}  mr-2`}
-      onClick={() => (page === name ? setPage("") : setPage(name))}
-    >
-      {capitalizedName}
-    </button>
-  );
-};
 
 const getComponent = (component, page, ownerPage, role = "", user) => {
   if (role !== "" && user.role !== role) return null;
@@ -45,25 +34,21 @@ const NavBar = ({ setModal, modal, setPage, page, hide }) => {
         <div className="navbar-wrapper h-14">
           <img src={NavImg} loading="lazy" width="80" af-el="nav-img" alt="" />
           <div af-el="nav-title" className="text-block">
-            Outreach
+            Workshop Reporting Tool
           </div>
           {!hide ? (
-            <div style={{ float: "right", marginLeft: "auto" }}>
-              <span className="text-xl">
-                <sup className={`text-sm institute mr-2`}>
-                  {user?.institute}
-                </sup>
-                <sup className={`text-sm role ${user.role}`}>{user?.role}</sup>
-                <span className="text-gray-100 mx-2">{user?.firstName}</span>
-              </span>
+            <div
+              style={{ float: "right", marginLeft: "auto" }}
+              className="flex flex-1 flex-row justify-end"
+            >
               {PAGES.map((p) => {
                 return getComponent(
                   <button
                     key={p.name}
-                    className="insert-doc-button mr-2"
+                    className="add-button mr-2"
                     onClick={() => setModal(!modal)}
                   >
-                    Add {capitalizeFirstLetter(p.name)}
+                    +
                   </button>,
                   page,
                   p.owner,
@@ -72,20 +57,14 @@ const NavBar = ({ setModal, modal, setPage, page, hide }) => {
                 );
               })}
 
-              {PAGES.map((p) => {
-                return (
-                  <ToggleButton
-                    key={p.name + "x"}
-                    page={page}
-                    setPage={setPage}
-                    name={p.name}
-                  />
-                );
-              })}
-              {/* <ToggleButton page={page} setPage={setPage} name="template" /> */}
-              <button className="logout-button" onClick={logout}>
-                {`Logout`}
-              </button>
+              <PageBox
+                user={user}
+                onLogout={logout}
+                pages={PAGES}
+                page={page}
+                setPage={setPage}
+              />
+              <ProfileBox user={user} onLogout={logout} />
             </div>
           ) : null}
         </div>
