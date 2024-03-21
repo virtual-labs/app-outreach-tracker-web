@@ -5,7 +5,8 @@ const {
   SPREADSHEET_INSTITUTE_TAB_RANGE,
   SPREADSHEET_WORKSHOP_TAB_RANGE,
   SPREADSHEET_TEMPLATES_TAB_RANGE,
-} = require("../secrets/spreadsheet");
+  SERVICE_ACCOUNT_SECRET_FILE,
+} = require("./spreadsheet");
 
 const tableSheetMap = {
   workshop: SPREADSHEET_WORKSHOP_TAB_RANGE,
@@ -17,7 +18,7 @@ const tableSheetMap = {
 const getDataFromSheet = async (spreadsheetId, range, req = null) => {
   try {
     const auth = new google.auth.GoogleAuth({
-      keyFile: "./secrets/service-account-secret.json",
+      keyFile: SERVICE_ACCOUNT_SECRET_FILE,
       scopes: "https://www.googleapis.com/auth/spreadsheets",
     });
     const authClientObject = await auth.getClient();
@@ -91,7 +92,7 @@ const instituteList = async () => {
 const appendIntoSheet = async (row, spreadsheetId, range) => {
   try {
     const auth = new google.auth.GoogleAuth({
-      keyFile: "./secrets/service-account-secret.json",
+      keyFile: SERVICE_ACCOUNT_SECRET_FILE,
       scopes: "https://www.googleapis.com/auth/spreadsheets",
     });
     const authClientObject = await auth.getClient();
@@ -262,7 +263,7 @@ const getInstitutes_ = async () => {
 const deleteFromSheet = async (rowIndex, table) => {
   try {
     const auth = new google.auth.GoogleAuth({
-      keyFile: "./secrets/service-account-secret.json",
+      keyFile: SERVICE_ACCOUNT_SECRET_FILE,
       scopes: "https://www.googleapis.com/auth/spreadsheets",
     });
     const authClientObject = await auth.getClient();
@@ -306,7 +307,7 @@ const deleteFromSheet = async (rowIndex, table) => {
 
 const updateRow = async (spreadsheetId, sheetName, data, rowIndex) => {
   const sheetsAuth = new google.auth.GoogleAuth({
-    keyFile: "./secrets/service-account-secret.json",
+    keyFile: SERVICE_ACCOUNT_SECRET_FILE,
     scopes: "https://www.googleapis.com/auth/spreadsheets",
   });
   const authClient = await sheetsAuth.getClient();

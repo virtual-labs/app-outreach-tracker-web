@@ -15,7 +15,7 @@ const {
   SPREADSHEET_TEMPLATES_TAB_RANGE,
   SPREADSHEET_USER_TAB_RANGE,
   SPREADSHEET_INSTITUTE_TAB_RANGE,
-} = require("../secrets/spreadsheet");
+} = require("../utils/spreadsheet");
 
 const getFormattedDate = (currentDate) => {
   let day = currentDate.getDate();

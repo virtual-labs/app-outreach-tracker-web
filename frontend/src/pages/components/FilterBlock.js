@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDatePicker from "react-datepicker";
 
 const SelectStyle =
   "bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg  p-2 m-1";
@@ -44,32 +45,19 @@ const FilterBlock = ({ rawColumns, setRows, origRows }) => {
 };
 
 const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
-  const dateFilters = [
-    "last 7 days",
-    "last 30 days",
-    "last 90 days",
-    "last year",
-    "all",
-  ];
-  const [dateFilter, setDateFilter] = React.useState("all");
+  const [dateInterval, setDateInterval] = React.useState({
+    start: new Date() - 7 * 24 * 60 * 60 * 100000,
+    end: new Date(),
+  });
   const [dateColumn, setDateColumn] = React.useState(
     dateColumns ? dateColumns[0].value : null
   );
 
-  const applyDateFilter = (dateFilter_, dateColumn_) => {
-    if (dateFilter_ === "all") {
-      setRows(origRows);
-      return;
-    }
-    let date = new Date();
-    if (dateFilter_ === "last 7 days") date.setDate(date.getDate() - 7);
-    if (dateFilter_ === "last 30 days") date.setDate(date.getDate() - 30);
-    if (dateFilter_ === "last 90 days") date.setDate(date.getDate() - 90);
-    if (dateFilter_ === "last year") date.setFullYear(date.getFullYear() - 1);
+  const applyDateFilter = (start, end) => {
     setRows(
       origRows.filter((row) => {
-        let rowDate = new Date(row[dateColumn_]);
-        return rowDate >= date;
+        let rowDate = new Date(row[dateColumn]);
+        return rowDate >= start && rowDate <= end;
       })
     );
   };
@@ -79,44 +67,43 @@ const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
       {
         <div className="p-2 bg-gray-200 rounded m-1">
           <label>Date</label>
-          <select
-            className={SelectStyle}
-            onChange={(e) => {
-              setDateColumn(e.target.value);
-              applyDateFilter(dateFilter, e.target.value);
-            }}
-          >
-            {dateColumns.map((col, index) => {
-              return (
-                <option
-                  key={index}
-                  value={col.value}
-                  selected={dateColumn === col.value}
-                >
-                  {col.value}
-                </option>
-              );
-            })}
-          </select>
-          <select
-            onChange={(e) => {
-              setDateFilter(e.target.value);
-              applyDateFilter(e.target.value, dateColumn);
-            }}
-            className={SelectStyle}
-          >
-            {dateFilters.map((filter, index) => {
-              return (
-                <option
-                  key={index}
-                  value={filter}
-                  selected={filter === dateFilter}
-                >
-                  {filter}
-                </option>
-              );
-            })}
-          </select>
+          <div className="flex flex-row">
+            <ReactDatePicker
+              selected={dateInterval && dateInterval.start}
+              onChange={(date) => {
+                setDateInterval({ ...dateInterval, start: date });
+                applyDateFilter(date, dateInterval.end);
+              }}
+              className={"w-24 " + SelectStyle}
+            />
+            <select
+              className={"w-28 " + SelectStyle}
+              onChange={(e) => {
+                setDateColumn(e.target.value);
+                applyDateFilter(dateInterval.start, dateInterval.end);
+              }}
+            >
+              {dateColumns.map((col, index) => {
+                return (
+                  <option
+                    key={index}
+                    value={col.value}
+                    selected={dateColumn === col.value}
+                  >
+                    {col.value}
+                  </option>
+                );
+              })}
+            </select>
+            <ReactDatePicker
+              selected={dateInterval && dateInterval.end}
+              onChange={(date) => {
+                setDateInterval({ ...dateInterval, end: date });
+                applyDateFilter(dateInterval.start, date);
+              }}
+              className={"w-24 " + SelectStyle}
+            />
+          </div>
         </div>
       }
     </>
@@ -154,14 +141,14 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
             onChange={(e) =>
               applyNumberFilter(e.target.value, numberColumn, rightVal)
             }
-            className={SelectStyle + " w-20"}
+            className={SelectStyle + " w-16"}
           />
           {"<"}
           <select
             onChange={(e) =>
               applyNumberFilter(leftVal, e.target.value, rightVal)
             }
-            className={SelectStyle + " w-auto"}
+            className={SelectStyle + " w-36"}
           >
             {numberColumns.map((col, index) => {
               return (
@@ -182,7 +169,7 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
             onChange={(e) =>
               applyNumberFilter(leftVal, numberColumn, e.target.value)
             }
-            className={SelectStyle + " w-20"}
+            className={SelectStyle + " w-16"}
           />
         </div>
       }

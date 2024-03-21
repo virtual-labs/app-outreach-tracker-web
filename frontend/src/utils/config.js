@@ -1,4 +1,8 @@
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL =
+  process.env.REACT_APP_MODE === "production"
+    ? process.env.REACT_APP_API_URL_PROD
+    : process.env.REACT_APP_API_URL_DEV;
+
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function validateURL(url) {

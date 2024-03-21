@@ -56,6 +56,11 @@ function Table({
     setEditObj(row);
   };
 
+  const getColWidth = (colName) => {
+    if (colName === "") return `${60}px`;
+    return colName.length > 8 ? `${150}px` : `${100}px`;
+  };
+
   const R = async () => {
     try {
       setPending(true);
@@ -91,7 +96,8 @@ function Table({
           sortable: sortable,
           wrap: true,
           resizable: true,
-          width: colName.length ? `${200}px` : `${60}px`,
+          width: getColWidth(colName),
+          style: { "white-space": "unset" },
         });
       }
 

@@ -9,7 +9,7 @@ const customStyles = {
     style: {
       color: "#202124",
       fontSize: "16px",
-      whiteSpace: "unset",
+      whiteSpace: "unset !important",
       textOverflow: "unset",
     },
   },
