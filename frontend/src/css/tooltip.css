@@ -1,0 +1,96 @@
+.tooltip-container {
+    /* position: relative; */
+}
+
+.profile-icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    color: #037d69;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: #037d69;
+    border-width: 3px;
+}
+
+.profile-icon:hover {
+    background-color: #ccc;
+    transition: all 0.1s;
+}
+
+.tooltip {
+    position: absolute;
+    top: 70%;
+    transform: translateX(-90%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 999;
+    width: 15%;
+}
+
+.user-info {
+    /* text-align: center; */
+}
+
+.user-info p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.user-info button {
+    margin-top: 5px;
+    /* Adjust spacing between username and logout button */
+    padding: 5px 10px;
+    /* Padding for the button */
+    background-color: rgb(195, 5, 5);
+    /* Background color of the button */
+    color: #fff;
+    /* Text color */
+    border: none;
+    border-radius: 3px;
+    /* Rounded corners */
+    cursor: pointer;
+}
+
+.user-info button:hover {
+    background-color: rgb(129, 5, 5);
+    /* Darker background color on hover */
+}
+
+.menu-button {
+    background-color: #00ac8e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.menu-button:hover {
+    background-color: #007f6f;
+}
+
+.menu-button.selected {
+    background-color: #007f6f;
+}
+
+.page-label {
+    font-size: 18px;
+    padding: 10px;
+    background-color: #037d69;
+    color: white;
+    cursor: pointer;
+    padding: auto;
+}
+
+.page-label:hover {
+    background-color: #005a4f;
+}
