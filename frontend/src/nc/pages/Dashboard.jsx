@@ -50,6 +50,9 @@ const Dashboard = () => {
     };
     T();
   }, []);
+
+  console.log("****New version****");
+
   return (
     <div className="flex flex-col h-screen w-screen overflow-hidden">
       <div className="flex">

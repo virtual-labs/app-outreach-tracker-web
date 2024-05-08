@@ -5,6 +5,7 @@ import { ROUTES } from "./routes";
 function App() {
   const [user, setUser] = useState({});
   const [credential, setCredential] = useState(null);
+
   useEffect(() => {
     const theUser = localStorage.getItem("user");
     const cred = localStorage.getItem("credential");

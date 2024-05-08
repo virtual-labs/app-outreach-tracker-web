@@ -19,7 +19,7 @@ const PageBox = ({ user, pages, page, setPage }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="page-label mr-2 rounded">
+      <div className="page-label flex justify-center items-center p-2 mr-2 rounded">
         {" "}
         <span className="text-xl">
           {capitalizeFirstLetter(page) + "s"}
