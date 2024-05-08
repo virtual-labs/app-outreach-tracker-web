@@ -4,7 +4,8 @@ import { get } from "../utils/requests";
 import { useEffect, useState } from "react";
 import NavBar from "./components/Navbar";
 import Table from "./components/Table";
-import "../index.css";
+import "../../index.css";
+import "../css/index.css";
 import useStore from "../hooks/useStore";
 
 const TABLES = [

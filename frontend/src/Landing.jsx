@@ -1,10 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
-import useFetch from "../hooks/useFetch";
-import { API_URL, CLIENT_ID } from "../utils/config";
-import BackImg from "../media/introduction.webp";
-import "../index.css";
-import NavBar from "./components/Navbar";
+import useFetch from "./nc/hooks/useFetch";
+import { API_URL, CLIENT_ID } from "./nc/utils/config";
+import BackImg from "./nc/media/introduction.webp";
+import "./index.css";
+import NavBar from "./nc/pages/components/Navbar";
 import ReactLoading from "react-loading";
 
 const Landing = () => {

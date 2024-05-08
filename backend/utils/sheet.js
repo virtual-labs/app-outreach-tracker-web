@@ -192,7 +192,8 @@ const getRow = (values, columns, rawData) => {
       rowObj[col.value] = values[index].userEnteredValue.numberValue;
       return;
     }
-    rowObj[col.value] = values[index].userEnteredValue.stringValue;
+    rowObj[col.value] =
+      values[index].userEnteredValue.stringValue || rawData[index];
   });
   return rowObj;
 };

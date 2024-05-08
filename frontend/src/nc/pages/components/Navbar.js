@@ -1,7 +1,7 @@
 import React from "react";
 import NavImg from "../../media/download.png";
 import { capitalizeFirstLetter } from "../../utils/utils";
-import "../../index.css";
+import "../../../index.css";
 import useStore from "../../hooks/useStore";
 import ProfileBox from "./ProfileBox";
 import PageBox from "./PageBox";
