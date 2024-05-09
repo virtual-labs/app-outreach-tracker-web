@@ -16,7 +16,7 @@
 
 ## Introduction
 
-The Workshop Reporting tool is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows admins and nodal coordinators from various institutes to access and maintain workshop information efficiently.
+The [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows admins and nodal coordinators from various institutes to access and maintain workshop information efficiently.
 
 ## Features
 
@@ -45,7 +45,7 @@ The Workshop Reporting tool is designed to facilitate the storage and management
 
 ### Logging In
 
-Upon navigating to the [Workshop Reporting Tool](outreach.vlabs.ac.in) tool's URL, users will be presented with the login page. Users can log in using their Google credentials.
+Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/)'s URL, users will be presented with the login page. Users can log in using their Google credentials.
 
 ![Login Page](./img/login.png)
 
