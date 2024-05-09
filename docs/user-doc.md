@@ -1,11 +1,11 @@
-# Outreach Tool Documentation
+# Workshop Reporting Tool Documentation
 
 ## Table of Contents
 
 1. [Introduction](#introduction)
 2. [Features](#features)
 3. [User Privileges](#user-privileges)
-4. [Walkthrough of the Outreach Tool](#walkthrough-of-the-outreach-tool)
+4. [Walkthrough of the Workshop Reporting Tool](#walkthrough-of-the-outreach-tool)
    - [Logging In](#logging-in)
    - [Dashboard](#dashboard)
    - [Managing Workshops](#managing-workshops)
@@ -16,7 +16,7 @@
 
 ## Introduction
 
-The Outreach tool is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows admins and nodal coordinators from various institutes to access and maintain workshop information efficiently.
+The Workshop Reporting tool is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows admins and nodal coordinators from various institutes to access and maintain workshop information efficiently.
 
 ## Features
 
@@ -41,11 +41,11 @@ The Outreach tool is designed to facilitate the storage and management of worksh
 
 \* Nodal coordinators can only view, add, delete, and edit workshops that are added by them.
 
-## Walkthrough of the Outreach Tool
+## Walkthrough of the Workshop Reporting Tool
 
 ### Logging In
 
-Upon navigating to the Outreach tool's URL, users will be presented with the login page. Users can log in using their Google credentials.
+Upon navigating to the [Workshop Reporting Tool](outreach.vlabs.ac.in) tool's URL, users will be presented with the login page. Users can log in using their Google credentials.
 
 ![Login Page](./img/login.png)
 
