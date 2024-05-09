@@ -1,4 +1,4 @@
-# Workshop Reporting Tool Documentation
+# Workshop Reporting Tool User Guide
 
 ## Table of Contents
 
