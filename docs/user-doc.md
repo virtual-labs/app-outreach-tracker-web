@@ -45,7 +45,7 @@ The [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) is designed to faci
 
 ### Logging In
 
-Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/)'s URL, users will be presented with the login page. Users can log in using their Google credentials.
+Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), users will be presented with the login page. Users can log in using their Google credentials.
 
 ![Login Page](./img/login.png)
 
