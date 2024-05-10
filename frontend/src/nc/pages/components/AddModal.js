@@ -26,8 +26,8 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
       }
     }
 
-    if (table === "institute") {
-      if (col.value === "Institute Name") {
+    if (table === "nodal center") {
+      if (col.value === "Nodal Center") {
         col.type = "string";
       }
     }

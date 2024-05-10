@@ -22,7 +22,7 @@ const TABLES = [
     editRole: "Admin",
   },
   {
-    name: ["institute"],
+    name: ["nodal center"],
     endpoint: "getInstitutes",
     postEndpoint: "addInstitute",
     editRole: "Admin",
@@ -31,6 +31,12 @@ const TABLES = [
     name: ["user"],
     endpoint: "getUsers",
     postEndpoint: "addUser",
+    editRole: "Admin",
+  },
+  {
+    name: ["feedback link"],
+    endpoint: "getFeedbackLinks",
+    postEndpoint: "addFeedbackLink",
     editRole: "Admin",
   },
 ];

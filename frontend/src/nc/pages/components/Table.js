@@ -69,6 +69,10 @@ function Table({
 
       let col_ = [{ value: "S. No", type: "number" }, ...resp.columns];
 
+      if (title === "feedback link") {
+        col_ = [...resp.columns];
+      }
+
       setRawColumns(col_);
 
       if (editRole === "" || user.role === editRole) {
@@ -143,6 +147,10 @@ function Table({
 
         return newRow;
       });
+      if (title === "feedback link" && user.role !== "Admin") {
+        rows_ = rows_.filter((row) => row["Nodal Center"] === user.institute);
+      }
+
       setOrigRows(rows_);
       setRows(rows_);
     } catch (err) {

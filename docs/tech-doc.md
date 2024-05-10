@@ -87,7 +87,7 @@ if (
   return { value, type: "number" };
 }
 
-if (lowerValue.includes("institute")) {
+if (lowerValue.includes("institute") || lowerValue.includes("nodal center")) {
   return { value, type: "select" };
 }
 

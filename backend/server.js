@@ -24,7 +24,7 @@ app.use(express.json());
 app.post("/login", login);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to the Outreach Server!");
+  res.send("Welcome to the Outreach Server v1.0!");
 });
 
 app.use("/api/user/", authenticateUser, userRouter);

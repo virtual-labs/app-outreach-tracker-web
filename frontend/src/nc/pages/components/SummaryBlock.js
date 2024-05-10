@@ -10,7 +10,7 @@ const SummaryBlock = ({ rows, visible }) => {
   }, 0);
 
   return (
-    <div className="flex-1 m-2">
+    <div className={`${"flex-1 m-2" ? visible : null}`}>
       {visible ? (
         <div className="font-bold	 bg-gray-100 h-full p-1  rounded">
           <label className="bold">Summary</label>

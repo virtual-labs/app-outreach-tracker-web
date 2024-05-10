@@ -1,5 +1,5 @@
 const { OAuth2Client } = require("google-auth-library");
-const { getUsersList } = require("../utils/sheet");
+const { getUsersList, getFeedbackLink } = require("../utils/sheet");
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_OAUTH_CLIENT_ID;
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
@@ -34,7 +34,14 @@ const authorizeUser = async (token) => {
     return { error: true, message: "Unauthorized" };
   }
 
-  const finalUser = adminUser || coordinatorUser;
+  let finalUser = adminUser || coordinatorUser;
+
+  let f_link = await getFeedbackLink(finalUser.institute);
+
+  finalUser = {
+    ...finalUser,
+    feedback_link: f_link,
+  };
 
   let user = {
     firstName: profile?.given_name,
