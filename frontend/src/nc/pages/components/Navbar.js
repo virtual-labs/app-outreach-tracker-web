@@ -5,6 +5,7 @@ import "../../../index.css";
 import useStore from "../../hooks/useStore";
 import ProfileBox from "./ProfileBox";
 import PageBox from "./PageBox";
+import HelpIcon from "../../media/help.png";
 
 const PAGES = [
   { name: "workshop", owner: ["workshop", ""], role: "" },
@@ -28,7 +29,7 @@ const getComponent = (component, page, ownerPage, role = "", user) => {
   return null;
 };
 
-const NavBar = ({ setModal, modal, setPage, page, hide }) => {
+const NavBar = ({ setModal, modal, setPage, page, hide, setViewHelp }) => {
   const user = useStore((state) => state.user);
   const logout = () => {
     const confirm = window.confirm("Are you sure you want to logout?");
@@ -51,6 +52,14 @@ const NavBar = ({ setModal, modal, setPage, page, hide }) => {
               style={{ float: "right", marginLeft: "auto" }}
               className="flex flex-1 flex-row justify-end"
             >
+              <button
+                key={"help"}
+                className="add-button mr-2"
+                onClick={() => setViewHelp(true)}
+                title={"Help"}
+              >
+                <img height={30} width={30} src={HelpIcon} alt="Help" />
+              </button>
               {PAGES.map((p) => {
                 return getComponent(
                   <button

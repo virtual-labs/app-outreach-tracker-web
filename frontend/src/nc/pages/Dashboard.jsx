@@ -7,6 +7,8 @@ import Table from "./components/Table";
 import "../../index.css";
 import "../css/index.css";
 import useStore from "../hooks/useStore";
+import HelpPane from "./components/HelpPane";
+import axios from "axios";
 
 const TABLES = [
   {
@@ -44,8 +46,10 @@ const TABLES = [
 const Dashboard = () => {
   const setUser = useStore((state) => state.setUser);
   const setInstituteList = useStore((state) => state.setInstituteList);
+  const setHelp = useStore((state) => state.setHelp);
   const [modal, setModal] = useState(false);
   const [page, setPage] = useState("workshop");
+  const [viewHelp, setViewHelp] = useState(false);
 
   useEffect(() => {
     const T = async () => {
@@ -53,6 +57,12 @@ const Dashboard = () => {
       const ilist = await get(`${API_URL}/api/workshop/instituteList`);
       setUser(user_.user);
       setInstituteList(ilist.instituteList);
+      // https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/dev/docs/nc-help-doc.md
+      const helpContent = await axios.get(
+        "https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/dev/docs/nc-help-doc.md"
+      );
+
+      setHelp(helpContent.data);
     };
     T();
   }, []);
@@ -67,9 +77,11 @@ const Dashboard = () => {
           modal={modal}
           setPage={setPage}
           page={page}
+          setViewHelp={setViewHelp}
         />
       </div>
       <div className="flex flex-1 flex-col overflow-hidden">
+        {viewHelp && <HelpPane setViewHelp={setViewHelp} />}
         {TABLES.map((table) => {
           if (table.name.includes(page)) {
             return (
