@@ -1,31 +1,25 @@
 # Outreach Tool Documentation
 
-## Table of Contents
+## Quick Access
 
 1. [Introduction](#introduction)
 2. [Definitions](#definitions)
-3. [Features](#features)
-4. [User Privileges](#user-privileges)
-5. [Walkthrough of the Outreach Tool](#walkthrough-of-the-outreach-tool)
+3. [User Privileges](#user-privileges)
+4. [Walkthrough of the Outreach Tool](#walkthrough-of-the-outreach-tool)
    - [Logging In](#logging-in)
    - [Dashboard](#dashboard)
    - [Managing Workshops](#managing-workshops)
    - [Managing Templates](#managing-templates)
    - [Managing Users and Institutes](#managing-users-and-institutes)
+   - [Managing Feedback Links](#managing-feedback-links)
    - [Logging Out](#logging-out)
-6. [Support and Updates](#support-and-updates)
+5. [Support and Updates](#support-and-updates)
 
 ## Introduction
 
 The Outreach tool is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows admins and nodal coordinators from various institutes to access and maintain workshop information efficiently.
 
 ## Definitions
-
-## Features
-
-- Store and manage workshop data.
-- Utilize different templates for workshop records.
-- Google authorization for both admin and coordinator users.
 
 ## User Privileges
 
@@ -71,12 +65,18 @@ Users can utilize different templates for workshop records to streamline data en
 ![Templates](./img/pagebox.png)
 ![Templates](./img/template.png)
 
-### Managing Users and Institutes
+### Managing Users and Nodal Centers
 
-Admin users have the privilege to add, edit, or delete user accounts and institute information. This allows for efficient management of user access and organization data.
+Admin users have the privilege to add, edit, or delete user accounts and nodal center information. This allows for efficient management of user access and organization data.
 
 ![Users](./img/ins.png)
 ![Users](./img/user.png)
+
+### Managing Feedback Links
+
+Admin users can add or delete feedback links for workshops. This feature allows for easy access to feedback forms and data collection.
+
+![Users](./img/fl.png)
 
 ### Logging Out
 
