@@ -3,20 +3,23 @@
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Features](#features)
-3. [User Privileges](#user-privileges)
-4. [Walkthrough of the Outreach Tool](#walkthrough-of-the-outreach-tool)
+2. [Definitions](#definitions)
+3. [Features](#features)
+4. [User Privileges](#user-privileges)
+5. [Walkthrough of the Outreach Tool](#walkthrough-of-the-outreach-tool)
    - [Logging In](#logging-in)
    - [Dashboard](#dashboard)
    - [Managing Workshops](#managing-workshops)
    - [Managing Templates](#managing-templates)
    - [Managing Users and Institutes](#managing-users-and-institutes)
    - [Logging Out](#logging-out)
-5. [Support and Updates](#support-and-updates)
+6. [Support and Updates](#support-and-updates)
 
 ## Introduction
 
 The Outreach tool is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows admins and nodal coordinators from various institutes to access and maintain workshop information efficiently.
+
+## Definitions
 
 ## Features
 
