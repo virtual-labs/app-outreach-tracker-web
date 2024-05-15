@@ -24,6 +24,13 @@ The [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) is designed to faci
 - Utilize different templates for workshop records.
 - Google authorization for both admin and coordinator users.
 
+## Definitions
+- Workshop: The workshop will be a hands-on session introducing Virtual Labs to students and faculty. It will include demos of experiments to help everyone understand the navigation process.
+- Usage: Each usage refers to loading the content of one experiment and loading the simulation of that same experiment.
+
+## On-Boarding Process
+Upon being appointed as the Nodal Coordinator, access to the portal is granted to you using the email provided in the Expression of Interest Document.
+
 ## User Privileges
 
 | Operation        | Nodal Coordinator |
