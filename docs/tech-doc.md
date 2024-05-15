@@ -96,4 +96,37 @@ return { value, type: "string" };
 
 ## Deployment
 
-Deployment instructions will be provided separately.
+This app is deployed on GCP (Google Cloud Platform) using App Engine for backend and bucket for frontend.
+
+The Outreach tool can be deployed using the following steps:
+
+1. **Google Cloud Platform CLI Setup** :- Install the Google Cloud SDK by following the instructions [here](https://cloud.google.com/sdk/docs/install).
+
+2. **Login to GCP from CLI**
+
+```bash
+gcloud auth login
+```
+
+3. **Set the project ID**
+
+```bash
+gcloud config set project outreach-default
+```
+
+4. **Deploy the backend**
+
+```bash
+cd backend
+gcloud app deploy
+```
+
+5. **Deploy the frontend**
+
+```bash
+cd frontend
+npm run build:prod
+gsutil cp -r build/* gs://outreach.vlabs.ac.in
+```
+
+Changes will be reflected in the frontend (https://outreach.vlabs.ac.in) after a few minutes.
