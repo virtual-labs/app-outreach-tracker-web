@@ -8,12 +8,12 @@ const HelpPane = ({ setViewHelp }) => {
   let markdownContent = help;
 
   const replaceImagePaths = (markdownContent, repoOwner, repoName, branch) => {
-    const regex = /!\[(.*?)\]\((.*?)\)/g; // Regex to match Markdown image syntax
+    const regex = /!\[(.*?)\]\((.*?)\)/g;
     const baseUrl = `https://raw.githubusercontent.com/${repoOwner}/${repoName}/${branch}/docs/`;
 
     return markdownContent.replace(regex, (match, altText, imagePath) => {
       if (imagePath.startsWith(".")) {
-        return `![${altText}](${baseUrl}${imagePath.substring(2)})`; // Remove "./" from the path
+        return `![${altText}](${baseUrl}${imagePath.substring(2)})`;
       }
       return match;
     });
@@ -23,7 +23,7 @@ const HelpPane = ({ setViewHelp }) => {
     markdownContent,
     "virtual-labs",
     "app-outreach-tracker-web",
-    "dev"
+    "main"
   );
 
   return (

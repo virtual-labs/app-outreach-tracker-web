@@ -59,7 +59,7 @@ const Dashboard = () => {
       setInstituteList(ilist.instituteList);
       // https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/dev/docs/nc-help-doc.md
       const helpContent = await axios.get(
-        "https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/dev/docs/nc-help-doc.md"
+        "https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/nc-help-doc.md"
       );
 
       setHelp(helpContent.data);
