@@ -4,15 +4,17 @@
 
 1. [Introduction](#introduction)
 2. [Features](#features)
-3. [User Privileges](#user-privileges)
-4. [Walkthrough of the Workshop Reporting Tool](#walkthrough-of-the-workshop-reporting-tool)
+3. [Definitions](#definitions)
+4. [On-Boarding Process](#on-boarding-process)
+5. [User Privileges](#user-privileges)
+6. [Walkthrough of the Workshop Reporting Tool](#walkthrough-of-the-workshop-reporting-tool)
    - [Logging In](#logging-in)
    - [Dashboard](#dashboard)
    - [Managing Workshops](#managing-workshops)
    - [Viewing Templates](#viewing-templates)
    - [Viewing Institutes](#viewing-institutes)
    - [Logging Out](#logging-out)
-5. [Support and Updates](#support-and-updates)
+7. [Support and Updates](#support-and-updates)
 
 ## Introduction
 
