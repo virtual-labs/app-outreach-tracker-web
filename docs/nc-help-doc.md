@@ -48,25 +48,25 @@ Upon being appointed as the Nodal Coordinator, access to the portal is granted t
 
 ### Logging In
 
-Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), users will be presented with the login page. Users can log in using their Google credentials.
+Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), Nodal coordinators will be presented with the login page. You can log in using their Google credentials.
 
 ![Login Page](./img/login.png)
 
 ### Dashboard
 
-After successful login, users will be logged into the Nodal Coordinator dashboard. The dashboard provides an overview of workshops and other relevant information.
+After successful login, you will be logged into the Nodal Coordinator dashboard. The dashboard provides an overview of workshops and other relevant information.
 
 ![Dashboard](./img/dash.png)
 
 ### Managing Workshops
 
-Nodal Coordinator users can manage their workshops by adding, editing, or deleting workshop records. They can also view detailed information about each workshop.
+Nodal Coordinator can manage their workshops by adding, editing, or deleting workshop records. They can also view detailed information about each workshop.
 
 ![Dashboard](./img/dash.png)
 
 ### Viewing Templates
 
-Users can view different templates for workshop records to streamline data entry and ensure consistency. 
+Nodal Coordinators can view different templates for workshop records to streamline data entry and ensure consistency. 
 
 ![Templates](./img/template.png)
 
@@ -75,20 +75,19 @@ Users can view different templates for workshop records to streamline data entry
 Nodal Coordinators can view other registered nodal centers.
 
 ![Users](./img/ins.png)
-![Users](./img/user.png)
 
 ### Viewing Feedback Links
 
-Admin users can add or delete feedback links for workshops. This feature allows for easy access to feedback forms and data collection.
+The Nodal Coordinator can access the feedback form links to collect the data from workshops. This feature allows for easy access to feedback forms and data collection.
 
 ![Users](./img/fl.png)
 
 ### Logging Out
 
-Users can log out of the Outreach tool by clicking on the logout button located in the navigation menu. This ensures the security of their account and data.
+The Nodal Coordinator can log out of the Workshop Reporting tool by clicking on the logout button located in the navigation menu. This ensures the security of their account and data.
 
 ![Logout](./img/dash.png)
 
 ## Support and Updates
 
-Regular updates and versioning are provided to ensure the tool's functionality and security.
+Regular updates and versioning are provided to ensure the tool's functionality and security. For any assistance or inquiries, please contact us at ioc-iiith@vlabs.ac.in.
