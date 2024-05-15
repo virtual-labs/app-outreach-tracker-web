@@ -7,6 +7,7 @@ const {
   getInstitutes_,
   deleteFromSheet,
   updateRow,
+  getFeedbackLinks,
 } = require("../utils/sheet");
 
 const {
@@ -15,6 +16,7 @@ const {
   SPREADSHEET_TEMPLATES_TAB_RANGE,
   SPREADSHEET_USER_TAB_RANGE,
   SPREADSHEET_INSTITUTE_TAB_RANGE,
+  SPREADSHEET_FEEDBACK_LINK_TAB_RANGE,
 } = require("../utils/spreadsheet");
 
 const getFormattedDate = (currentDate) => {
@@ -162,6 +164,23 @@ const editWorkshops = async (req, res) => {
   return res.json({ msg: "Updated successfully" });
 };
 
+const addFeedbackLink = async (req, res) => {
+  const rowData = req.body;
+  const r = getFormattedRow(rowData);
+  const row = [r];
+  await appendIntoSheet(
+    row,
+    SPREADSHEET_ID,
+    SPREADSHEET_FEEDBACK_LINK_TAB_RANGE
+  );
+  return res.json({ msg: "Added successfully" });
+};
+
+const getFeedbackLink = async (req, res) => {
+  const fl = await getFeedbackLinks();
+  return res.json(fl);
+};
+
 module.exports = {
   getInstituteList,
   addWorkshop,
@@ -174,4 +193,6 @@ module.exports = {
   getInstitutes,
   deleteEntry,
   editWorkshops,
+  getFeedbackLink,
+  addFeedbackLink,
 };

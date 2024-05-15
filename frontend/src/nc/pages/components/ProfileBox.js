@@ -26,7 +26,7 @@ const ProfileBox = ({ user, onLogout }) => {
         </span>{" "}
       </div>
       {showTooltip && (
-        <div className="tooltip">
+        <div className="tooltip-profile">
           <div className="user-info ">
             <div className="flex flex-col position-absolute bg-gray-200 text-xl w-full p-1 rounded m-1">
               <span className="px-1">

@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Landing from "./pages/Landing";
-import Dashboard from "./pages/Dashboard";
-import "./css/App.css";
-import "./css/index.css";
+import { ROUTES } from "./routes";
 
 function App() {
   const [user, setUser] = useState({});
   const [credential, setCredential] = useState(null);
+
   useEffect(() => {
     const theUser = localStorage.getItem("user");
     const cred = localStorage.getItem("credential");
@@ -23,20 +21,40 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            credential && user?.email ? (
-              <Navigate to="/dashboard" />
-            ) : (
-              <Landing />
-            )
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={credential ? <Dashboard /> : <Navigate to="/" />}
-        />
+        {ROUTES.map((route) => {
+          const { path } = route;
+          return route.children.map((child) => {
+            const abs_path = `${path}${child.path}`;
+
+            if (child.protected) {
+              return (
+                <Route
+                  path={abs_path}
+                  element={
+                    credential && user?.email ? (
+                      child.element
+                    ) : (
+                      <Navigate to={child.failure_redirect} />
+                    )
+                  }
+                />
+              );
+            } else {
+              return (
+                <Route
+                  path={abs_path}
+                  element={
+                    credential && user?.email ? (
+                      <Navigate to={child.login_redirect} />
+                    ) : (
+                      child.element
+                    )
+                  }
+                />
+              );
+            }
+          });
+        })}
       </Routes>
     </BrowserRouter>
   );

@@ -6,6 +6,7 @@ const {
   SPREADSHEET_WORKSHOP_TAB_RANGE,
   SPREADSHEET_TEMPLATES_TAB_RANGE,
   SERVICE_ACCOUNT_SECRET_FILE,
+  SPREADSHEET_FEEDBACK_LINK_TAB_RANGE,
 } = require("./spreadsheet");
 
 const tableSheetMap = {
@@ -13,6 +14,7 @@ const tableSheetMap = {
   template: SPREADSHEET_TEMPLATES_TAB_RANGE,
   user: SPREADSHEET_USER_TAB_RANGE,
   institute: SPREADSHEET_INSTITUTE_TAB_RANGE,
+  "feedback link": SPREADSHEET_FEEDBACK_LINK_TAB_RANGE,
 };
 
 const getDataFromSheet = async (spreadsheetId, range, req = null) => {
@@ -163,7 +165,10 @@ const getColumns = (values) => {
         return { value, type: "number" };
       }
 
-      if (lowerValue.includes("institute")) {
+      if (
+        lowerValue.includes("institute") ||
+        lowerValue.includes("nodal center")
+      ) {
         return { value, type: "select" };
       }
 
@@ -192,7 +197,8 @@ const getRow = (values, columns, rawData) => {
       rowObj[col.value] = values[index].userEnteredValue.numberValue;
       return;
     }
-    rowObj[col.value] = values[index].userEnteredValue.stringValue;
+    rowObj[col.value] =
+      values[index].userEnteredValue.stringValue || rawData[index];
   });
   return rowObj;
 };
@@ -330,6 +336,22 @@ const updateRow = async (spreadsheetId, sheetName, data, rowIndex) => {
   }
 };
 
+const getFeedbackLinks = async () => {
+  let { readData: usersData, rawData } = await getDataFromSheet(
+    SPREADSHEET_ID,
+    SPREADSHEET_FEEDBACK_LINK_TAB_RANGE,
+    "RAW"
+  );
+  const linkList = usersData.data.sheets[0].data[0].rowData;
+  return getTableData(linkList, rawData);
+};
+
+const getFeedbackLink = async (institute) => {
+  const { rows } = await getFeedbackLinks();
+  const link = rows.find((row) => row["Nodal Center"] === institute);
+  return link ? link["Feedback Link"] : "";
+};
+
 module.exports = {
   getUsersList,
   instituteList,
@@ -340,4 +362,6 @@ module.exports = {
   getInstitutes_,
   deleteFromSheet,
   updateRow,
+  getFeedbackLinks,
+  getFeedbackLink,
 };

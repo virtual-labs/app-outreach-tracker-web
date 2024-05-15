@@ -1,3 +1,5 @@
+import { isUri } from "valid-url";
+
 const API_URL =
   process.env.REACT_APP_MODE === "production"
     ? process.env.REACT_APP_API_URL_PROD
@@ -6,9 +8,9 @@ const API_URL =
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function validateURL(url) {
-  const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+  // const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
 
-  if (!urlRegex.test(url)) {
+  if (!isUri(url)) {
     return "Invalid URL. Please enter a valid URL.";
   }
   return null;

@@ -13,6 +13,8 @@ const {
   getInstitutes,
   deleteEntry,
   editWorkshops,
+  getFeedbackLink,
+  addFeedbackLink,
 } = require("../controllers/workshop");
 
 router.route("/instituteList").get(getInstituteList);
@@ -26,5 +28,7 @@ router.route("/addInstitute").post(addInstitute);
 router.route("/getUsers").get(getUsers);
 router.route("/addUser").post(addUser);
 router.route("/").delete(deleteEntry);
+router.route("/addFeedbackLink").post(addFeedbackLink);
+router.route("/getFeedbackLinks").get(getFeedbackLink);
 
 module.exports = router;

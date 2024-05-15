@@ -19,7 +19,7 @@ const PageBox = ({ user, pages, page, setPage }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="page-label mr-2 rounded">
+      <div className="page-label flex justify-center items-center p-2 mr-2 rounded">
         {" "}
         <span className="text-xl">
           {capitalizeFirstLetter(page) + "s"}
@@ -29,10 +29,14 @@ const PageBox = ({ user, pages, page, setPage }) => {
         <div className="tooltip">
           <div className="flex flex-col">
             {pages.map((p) => {
+              if (p.name === "user" && user.role === "Coordinator") return null;
               return (
                 <button
                   key={p.name}
-                  onClick={() => setPage(p.name)}
+                  onClick={() => {
+                    setPage(p.name);
+                    if (p.click) p.click(user);
+                  }}
                   className={`menu-button ${page === p.name && "selected"}`}
                 >
                   {capitalizeFirstLetter(p.name) + "s"}

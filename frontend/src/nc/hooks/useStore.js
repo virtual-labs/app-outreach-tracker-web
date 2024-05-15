@@ -5,6 +5,8 @@ const useStore = create((set) => ({
   setUser: (newUser) => set({ user: newUser }),
   instituteList: [],
   setInstituteList: (newList) => set({ instituteList: newList }),
+  help: "",
+  setHelp: (newHelp) => set({ help: newHelp }),
 }));
 
 export default useStore;

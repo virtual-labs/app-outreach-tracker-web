@@ -141,7 +141,7 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
             onChange={(e) =>
               applyNumberFilter(e.target.value, numberColumn, rightVal)
             }
-            className={SelectStyle + " w-16"}
+            className={SelectStyle + " w-20"}
           />
           {"<"}
           <select
@@ -169,7 +169,7 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
             onChange={(e) =>
               applyNumberFilter(leftVal, numberColumn, e.target.value)
             }
-            className={SelectStyle + " w-16"}
+            className={SelectStyle + " w-20"}
           />
         </div>
       }
