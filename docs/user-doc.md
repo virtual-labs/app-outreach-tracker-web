@@ -48,13 +48,13 @@ Upon being appointed as the Nodal Coordinator, access to the portal is granted t
 | Delete Institute | No                |
 | View Workshop    | \*Yes             |
 
-\* Nodal coordinators can only view, add, delete, and edit workshops that are added by them.
+\* Nodal coordinators can only view, add, delete, and edit workshops that are added to them.
 
 ## Walkthrough of the Workshop Reporting Tool
 
 ### Logging In
 
-Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), Npdal coordinators will be presented with the login page, you can log in using their Google credentials.
+Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), Nodal coordinators will be presented with the login page, you can log in using the Google credentials.
 
 ![Login Page](./img/login.png)
 
