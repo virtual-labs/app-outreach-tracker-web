@@ -43,6 +43,11 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
       const email = JSON.parse(localStorage.getItem("user"))?.email;
       if (col.type === "date") obj[col.value] = new Date();
       else if (col.type === "number") obj[col.value] = 0;
+      else if (
+        col.type === "select" &&
+        col.value.toLowerCase().includes("role")
+      )
+        obj[col.value] = "Coordinator";
       else if (col.type === "select") obj[col.value] = inst || instituteList[0];
       else if (col.value === "Email") obj[col.value] = email;
       else obj[col.value] = "";
@@ -178,10 +183,14 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
     const valid = validateForm();
     if (valid) {
       setLoading(true);
+      console.log(formState);
+      console.log(columns);
 
       const body = columns.map((col) => {
         return { value: formState[col.value], type: col.type };
       });
+
+      console.log(body);
       const resp = await post(postEndpoint, body);
       setLoading(false);
       setModal(false);
