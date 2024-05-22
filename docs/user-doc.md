@@ -1,24 +1,22 @@
-# Workshop Reporting Tool User Guide
+# Workshop Reporting Tool Documentation
 
 ## Table of Contents
 
 1. [Introduction](#introduction)
 2. [Features](#features)
-3. [Definitions](#definitions)
-4. [On-Boarding Process](#on-boarding-process)
-5. [User Privileges](#user-privileges)
-6. [Walkthrough of the Workshop Reporting Tool](#walkthrough-of-the-workshop-reporting-tool)
+3. [User Privileges](#user-privileges)
+4. [Walkthrough of the Workshop Reporting Tool](#walkthrough-of-the-workshop-reporting-tool)
    - [Logging In](#logging-in)
    - [Dashboard](#dashboard)
    - [Managing Workshops](#managing-workshops)
-   - [Viewing Templates](#viewing-templates)
-   - [Viewing Institutes](#viewing-institutes)
+   - [Managing Templates](#managing-templates)
+   - [Managing Users and Institutes](#managing-users-and-institutes)
    - [Logging Out](#logging-out)
-7. [Support and Updates](#support-and-updates)
+5. [Support and Updates](#support-and-updates)
 
 ## Introduction
 
-The [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows nodal coordinators from various institutes to access and maintain workshop information efficiently.
+The [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows admins and nodal coordinators from various institutes to access and maintain workshop information efficiently.
 
 ## Features
 
@@ -26,68 +24,62 @@ The [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) is designed to faci
 - Utilize different templates for workshop records.
 - Google authorization for both admin and coordinator users.
 
-## Definitions
-- Workshop: The workshop will be a hands-on session introducing Virtual Labs to students and faculty. It will include demos of experiments to help everyone understand the navigation process.
-- Usage: Each usage refers to loading the content of one experiment and loading the simulation of that same experiment.
-
-## On-Boarding Process
-Upon being appointed as the Nodal Coordinator, access to the portal is granted to you using the email provided in the Expression of Interest Document.
-
 ## User Privileges
 
-| Operation        | Nodal Coordinator |
-| ---------------- | ----------------- |
-| Add Workshop     | \*Yes             |
-| Delete Workshop  | \*Yes             |
-| Edit Workshop    | \*Yes             |
-| Add Template     | Yes               |
-| Delete Template  | No                |
-| Add User         | No                |
-| Delete User      | No                |
-| Add Institute    | No                |
-| Delete Institute | No                |
-| View Workshop    | \*Yes             |
+| Operation        | Admin User | Nodal Coordinator |
+| ---------------- | ---------- | ----------------- |
+| Add Workshop     | Yes        | \*Yes             |
+| Delete Workshop  | Yes        | \*Yes             |
+| Edit Workshop    | Yes        | \*Yes             |
+| Add Template     | Yes        | Yes               |
+| Delete Template  | Yes        | No                |
+| Add User         | Yes        | No                |
+| Delete User      | Yes        | No                |
+| Add Institute    | Yes        | No                |
+| Delete Institute | Yes        | No                |
+| View Workshop    | Yes        | \*Yes             |
 
-\* Nodal coordinators can only view, add, delete, and edit workshops that are added to them.
+\* Nodal coordinators can only view, add, delete, and edit workshops that are added by them.
 
 ## Walkthrough of the Workshop Reporting Tool
-
 ### Logging In
 
-Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), Nodal coordinators will be presented with the login page, you can log in using the Google credentials.
+Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/), users will be presented with the login page. Users can log in using their Google credentials.
 
 ![Login Page](./img/login.png)
 
 ### Dashboard
 
-After successful login, Nodal coordinators will be logged into the dashboard. The dashboard provides an overview of workshops and other relevant information.
+After successful login, users will land on the dashboard. The dashboard provides an overview of workshops and other relevant information.
 
 ![Dashboard](./img/dash.png)
 
 ### Managing Workshops
 
-The Nodal Coordinator can manage workshops by adding, editing, or deleting workshop records. They can also view detailed information about each workshop.
+Admin and Nodal Coordinator users can manage workshops by adding, editing, or deleting workshop records. They can also view detailed information about each workshop.
 
 ![Dashboard](./img/dash.png)
 
-### Viewing Templates
+### Managing Templates
 
-Nodal coordinators can view different templates for workshop records to streamline data entry and ensure consistency. 
+Users can utilize different templates for workshop records to streamline data entry and ensure consistency. They can add, edit, or delete templates as needed.
 
+![Templates](./img/pagebox.png)
 ![Templates](./img/template.png)
 
-### Viewing Institutes
+### Managing Users and Institutes
 
-Nodal coordinators can view other registered Nodal centers
+Admin users have the privilege to add, edit, or delete user accounts and institute information. This allows for efficient management of user access and organization data.
 
+![Users](./img/ins.png)
 ![Users](./img/user.png)
 
 ### Logging Out
 
-Nodal coordinators can log out of the workshop reporting tool by clicking on the logout button located in the navigation menu. This ensures the security of their account and data.
+Users can log out of the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) by clicking on the logout button located in the navigation menu. This ensures the security of their account and data.
 
 ![Logout](./img/dash.png)
 
 ## Support and Updates
 
-Regular updates and versioning are provided to ensure the tool's functionality and security. For any assistance or inquiries, please contact us at ioc-iiith@vlabs.ac.in.
+Regular updates and versioning are provided to ensure the tool's functionality and security.
