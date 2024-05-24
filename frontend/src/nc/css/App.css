@@ -406,7 +406,7 @@ html[data-w-dynpage] [data-w-cloak] {
   cursor: pointer;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .1);
   visibility: visible !important;
-  z-index: 2147483647 !important;
+  z-index: 2147483646 !important;
   color: #aaadb0 !important;
   opacity: 1 !important;
   width: auto !important;
@@ -2225,8 +2225,8 @@ textarea.w-select {
   max-height: none;
   max-width: none;
   background-color: #28bfa4;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 0;
+  margin-right: 0;
   padding: 10px;
 }
 
@@ -2409,6 +2409,12 @@ textarea.w-select {
 }
 
 .add-lab-container {
+  border: 2px solid #00a38a;
+  width: 60vw;
+  overflow-y: auto;
+}
+
+.help-container {
   border: 2px solid #00a38a;
 }
 
@@ -3029,4 +3035,27 @@ textarea.w-select {
 
 .add-button:active {
   background-color: #036456;
+}
+
+@media (max-width: 767px) {
+  .navbar-no-shadow-container {
+    align-items: center;
+  }
+
+  .navbar-wrapper {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .add-lab-container {
+    width: 80vw;
+    height: auto;
+  }
+
+  .text-block {
+    /* display: flex; */
+    flex-direction: row;
+    align-items: center;
+    font-size: 15px;
+  }
 }

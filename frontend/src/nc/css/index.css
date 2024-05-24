@@ -34,6 +34,7 @@ div[role="row"]:hover {
 
 .host-req {
     z-index: 2147483647 !important;
+    height: 100vh;
 }
 
 .delete-button {
@@ -72,4 +73,101 @@ div[role="row"]:hover {
 
 .edit-button:active {
     background-color: #005a52;
+}
+
+.hamburger-button {
+    display: none;
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+}
+
+.hamburger-line {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.hamburger-button:hover .hamburger-line {
+    background-color: #666;
+}
+
+.hamburger-menu {
+    position: relative;
+    padding: 10px;
+    z-index: 111;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    display: none;
+    border: 2px solid #00a38a;
+    background-color: white;
+    text-align: center;
+}
+
+.desktop-view {
+    display: flex;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 767px) {
+    .hamburger-menu {
+        width: 150px;
+        display: block;
+        margin-top: 8vh;
+        margin-left: 0vw;
+    }
+
+    .desktop-view {
+        display: none;
+    }
+
+    .hamburger-button {
+        display: block;
+    }
+
+    .flex-row {
+        flex-direction: column;
+    }
+
+    .host-req {
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+    }
+
+    .hamburger-container {
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-left: 1px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 0;
+        right: 1% !important;
+    }
+
+    .summary-filter {
+        display: none;
+    }
+
+    .bottom-right {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        justify-content: flex-end;
+        z-index: 2147483647;
+      }
 }

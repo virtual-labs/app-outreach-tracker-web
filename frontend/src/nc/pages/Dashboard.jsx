@@ -80,7 +80,11 @@ const Dashboard = () => {
           setViewHelp={setViewHelp}
         />
       </div>
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex flex-1 flex-col overflow-hidden" style={
+        {
+          overflow: "auto",
+        }
+      }>
         {viewHelp && <HelpPane setViewHelp={setViewHelp} />}
         {TABLES.map((table) => {
           if (table.name.includes(page)) {

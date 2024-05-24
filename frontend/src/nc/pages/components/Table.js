@@ -11,6 +11,7 @@ import EditIcon from "../../media/edit.png";
 import Loading from "./Loading";
 import SummaryBlock from "./SummaryBlock";
 import FilterBlock from "./FilterBlock";
+import Dropdowns from "./Dropdowns";
 
 const SORTABLE_TYPES = ["string", "date", "number", "select"];
 
@@ -189,10 +190,18 @@ function Table({
         />
       )}
       <span className="text-xl p-2">{capitalizeFirstLetter(title_) + "s"}</span>
-      <div className="flex flex-row p-2">
-        <SummaryBlock rows={rows} visible={title === "workshop"} />
-        <FilterBlock {...{ rawColumns, setRows, origRows }} />
+      <div className="flex flex-col md:flex-row p-2">
+        <div className="summary-filter flex flex-row p-2">
+          <SummaryBlock rows={rows} visible={title === "workshop"} />
+          <FilterBlock {...{ rawColumns, setRows, origRows }} />
+        </div>
+        <div className="md:hidden">
+          <div className="flex">
+            <Dropdowns {...{ rows, visible: title === 'workshop', rawColumns, setRows, origRows }} />
+          </div>
+        </div>
       </div>
+      <br></br>
       <div className="atable-parent flex flex-col w-full overflow-hidden">
         <DataTable
           columns={columns}

@@ -206,8 +206,8 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
   };
 
   return (
-    <div className="host-req absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 h-full flex items-center justify-center z-1150">
-      <div className="flex flex-col bg-gray-200 h-auto w-3/5 add-lab-container p-2">
+    <div className="host-req absolute top-0 left-0 w-full bg-black bg-opacity-50 flex items-center justify-center z-1150">
+      <div className="flex flex-col bg-gray-200 add-lab-container p-2">
         <div className="flex flex-row">
           <h2 className="flex-1 text-2xl text-gray-600 mt-0">
             {`${capitalizeFirstLetter(table)} Information`}
@@ -219,7 +219,7 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
             &times;
           </span>
         </div>
-        <form className="flex flex-col mb-4" onSubmit={handleSubmit}>
+        <form className="flex flex-col mb-4 overflow-y-auto overflow-x-hidden max-h-[500px]" onSubmit={handleSubmit}>
           {columns.map((column, index) => {
             return (
               <div className="flex flex-row">
