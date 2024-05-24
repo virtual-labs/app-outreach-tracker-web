@@ -1,11 +1,11 @@
-# Workshop Reporting Tool User Guide
+# Workshop Tracker - Nodal Coordinator Guide
 
 ## Quick Access
 
 1. [Introduction](#introduction)
 2. [Definitions](#definitions)
 3. [User Privileges](#user-privileges)
-4. [Walkthrough of the Workshop Reporting Tool](#walkthrough-of-the-outreach-tool)
+4. [Walkthrough of Workshop Tracker](#walkthrough-of-the-workshop-tracker)
    - [Logging In](#logging-in)
    - [Dashboard](#dashboard)
    - [Managing Workshops](#managing-workshops)
@@ -17,7 +17,7 @@
 
 ## Introduction
 
-The [Workshop Reporting Tool ](https://outreach.vlabs.ac.in/) is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows nodal coordinators from various institutes to access and maintain workshop information efficiently.
+The [Workshop Tracker](https://outreach.vlabs.ac.in/) is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows nodal coordinators from various institutes to access and maintain workshop information efficiently.
 
 ## Definitions
    - Workshop: The workshop will be a hands-on session introducing Virtual Labs to students and faculty. It will include demos of experiments to help everyone understand the navigation process.
@@ -44,11 +44,11 @@ The [Workshop Reporting Tool ](https://outreach.vlabs.ac.in/) is designed to fac
 
 Upon being appointed as the Nodal Coordinator, access to the portal is granted to you using the email provided in the Expression of Interest Document.
 
-## Walkthrough of the Workshop Reporting Tool
+## Walkthrough of the Workshop Tracker
 
 ### Logging In
 
-Upon navigating to the [Workshop Reporting Tool](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), Nodal coordinators will be presented with the login page. You can log in using their Google credentials.
+Upon navigating to the [Workshop Tracker](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), Nodal coordinators will be presented with the login page. You can log in using their Google credentials.
 
 ![Login Page](./img/login.png)
 
