@@ -11,7 +11,7 @@ import NavBarSmall from "./SmallNavBar";
 const PAGES = [
   { name: "workshop", owner: ["workshop", ""], role: "" },
   { name: "template", owner: ["template"], role: "Admin" },
-  { name: "nodal center", owner: ["nodel center"], role: "Admin" },
+  { name: "nodal center", owner: ["nodal center"], role: "Admin" },
   { name: "user", owner: ["user"], role: "Admin" },
   {
     name: "feedback link",
@@ -60,7 +60,13 @@ const NavBar = ({ setModal, modal, setPage, page, hide, setViewHelp }) => {
       {isLargeScreen ? (
         <div className="navbar-no-shadow-container w-nav">
           <div className="navbar-wrapper h-14">
-            <img src={NavImg} loading="lazy" width="80" af-el="nav-img" alt="" />
+            <img
+              src={NavImg}
+              loading="lazy"
+              width="80"
+              af-el="nav-img"
+              alt=""
+            />
             <div af-el="nav-title" className="text-block">
               Workshop Reporting Tool
             </div>
