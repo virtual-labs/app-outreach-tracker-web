@@ -8,7 +8,7 @@ import Hamburger from "./Hamburger";
 const PAGES = [
   { name: "workshop", owner: ["workshop", ""], role: "" },
   { name: "template", owner: ["template"], role: "Admin" },
-  { name: "nodal center", owner: ["nodel center"], role: "Admin" },
+  { name: "nodal center", owner: ["nodal center"], role: "Admin" },
   { name: "user", owner: ["user"], role: "Admin" },
   {
     name: "feedback link",
