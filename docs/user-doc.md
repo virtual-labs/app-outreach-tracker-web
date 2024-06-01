@@ -120,7 +120,7 @@ Mobile view:
 
 ### Managing Users and Institutes
 
-Admin users have the privilege to add, edit, or delete user accounts and institute information. This allows for efficient management of user access and organization data.
+Admin users have the privilege to add, edit, or delete user accounts and institute information. This allows for efficient management of user access and organization data. Upon addition or deletion of a user, a mail is sent to the user.
 
 ![Users](./img/ins.png)
 ![Users](./img/user.png)

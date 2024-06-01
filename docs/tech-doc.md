@@ -29,6 +29,10 @@ The Outreach tool utilizes Google OAuth authentication for user authentication. 
 
 Google Sheets is used as the data source for the Outreach tool. Developers need to provide editor access to the Google service account specified in `backend/secrets/service-account-secret.json`. This service account is used to read data from the Google Sheet.
 
+### Sender Address
+
+Developers must copy the format from `/backend/senderdetails.json` and update the variables in `backend/secrets/sendermail.json` in order for the emailing functionality to work.
+
 ## Development Environment Setup
 
 Developers can set up their local development environment using the following steps:
