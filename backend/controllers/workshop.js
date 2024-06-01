@@ -73,11 +73,16 @@ const addTemplates = async (req, res) => {
   return res.json({ msg: "Added successfully" });
 };
 
+const sendmail = require("../mail");
+
 const addUser = async (req, res) => {
   const rowData = req.body;
   const r = getFormattedRow(rowData);
   const row = [r];
   await appendIntoSheet(row, SPREADSHEET_ID, SPREADSHEET_USER_TAB_RANGE);
+  const subject = "Onboarding";
+  const text = `Greetings from Virtual Labs. You have been added as a ${row[0][1]} in our system in the institution ${row[0][2]}`;
+  sendmail(subject, row[0][0], text);
   return res.json({ msg: "Added successfully" });
 };
 

@@ -266,49 +266,67 @@ const getInstitutes_ = async () => {
   return getTableData(institutesList, rawData);
 };
 
+const sendmail = require("../mail");
+
 const deleteFromSheet = async (rowIndex, table) => {
-  try {
-    const auth = new google.auth.GoogleAuth({
-      keyFile: SERVICE_ACCOUNT_SECRET_FILE,
-      scopes: "https://www.googleapis.com/auth/spreadsheets",
-    });
-    const authClientObject = await auth.getClient();
-    const googleSheetsInstance = google.sheets({
-      version: "v4",
-      auth: authClientObject,
-    });
+  // console.log(table);
+  const result = getUsers_();
+  result.then(value => {
+    // console.log(value); // Outputs: Operation complete
+    const subject = "Offboarding";
+    const email = value.rows[rowIndex-1]['User Email'];
+    const role = value.rows[rowIndex-1].Role;
+    const center = value.rows[rowIndex-1]['Nodal Center'];
+    const text = `Greetings from Virtual Labs. You have been removed from being a ${role} in our system in the institution ${center}`;
+    sendmail(subject, email, text);
 
-    const spreadsheet = await googleSheetsInstance.spreadsheets.get({
-      spreadsheetId: SPREADSHEET_ID,
-    });
-    const sheets = spreadsheet.data.sheets;
-    const sheet = sheets.find(
-      (s) => s.properties.title === tableSheetMap[table]
-    );
-    const sheetId = sheet.properties.sheetId;
+    (async () => {
+      try {
+        const auth = new google.auth.GoogleAuth({
+          keyFile: SERVICE_ACCOUNT_SECRET_FILE,
+          scopes: "https://www.googleapis.com/auth/spreadsheets",
+        });
+        const authClientObject = await auth.getClient();
+        const googleSheetsInstance = google.sheets({
+          version: "v4",
+          auth: authClientObject,
+        });
 
-    const result = await googleSheetsInstance.spreadsheets.batchUpdate({
-      spreadsheetId: SPREADSHEET_ID,
-      resource: {
-        requests: [
-          {
-            deleteDimension: {
-              range: {
-                sheetId: sheetId,
-                dimension: "ROWS",
-                startIndex: rowIndex,
-                endIndex: rowIndex + 1,
+        const spreadsheet = await googleSheetsInstance.spreadsheets.get({
+          spreadsheetId: SPREADSHEET_ID,
+        });
+        const sheets = spreadsheet.data.sheets;
+        const sheet = sheets.find(
+          (s) => s.properties.title === tableSheetMap[table]
+        );
+        const sheetId = sheet.properties.sheetId;
+
+        const result = await googleSheetsInstance.spreadsheets.batchUpdate({
+          spreadsheetId: SPREADSHEET_ID,
+          resource: {
+            requests: [
+              {
+                deleteDimension: {
+                  range: {
+                    sheetId: sheetId,
+                    dimension: "ROWS",
+                    startIndex: rowIndex,
+                    endIndex: rowIndex + 1,
+                  },
+                },
               },
-            },
+            ],
           },
-        ],
-      },
-    });
-    return result.data;
-  } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
-  }
+        });
+        return result.data;
+      } catch (error) {
+        console.log(error);
+        throw new Error(error.message);
+      }
+    })();
+  }).catch(error => {
+    console.error(error);
+  });
 };
 
 const updateRow = async (spreadsheetId, sheetName, data, rowIndex) => {
