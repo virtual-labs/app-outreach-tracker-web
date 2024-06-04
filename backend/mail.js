@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
 const fs = require('fs').promises;
+const username = process.env.SENDER_EMAIL;
+const password = process.env.SENDER_PASSWORD;
 
 async function loadJSON() {
     try {
@@ -15,9 +17,6 @@ async function loadJSON() {
 const sendmail = async (subject, to, text) => {
     loadJSON()
         .then(data => {
-            const username = data.EmailID;
-            const password = data.Password;
-
             let transporter = nodemailer.createTransport({
                 host: "smtp.office365.com",  // Outlook SMTP server
                 port: 587, // Port for TLS/STARTTLS
