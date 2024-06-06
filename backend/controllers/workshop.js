@@ -74,15 +74,22 @@ const addTemplates = async (req, res) => {
 };
 
 const sendmail = require("../mail");
+const fs = require('fs').promises;
 
 const addUser = async (req, res) => {
   const rowData = req.body;
   const r = getFormattedRow(rowData);
   const row = [r];
   await appendIntoSheet(row, SPREADSHEET_ID, SPREADSHEET_USER_TAB_RANGE);
-  const subject = "Onboarding";
-  const text = `Greetings from Virtual Labs. You have been added as a ${row[0][1]} in our system in the institution ${row[0][2]}`;
-  sendmail(subject, row[0][0], text);
+  try {
+    const path = require('path');
+    const jsonString = await fs.readFile(path.join(__dirname, '..', 'template_mail.json'), 'utf8');
+    const data = JSON.parse(jsonString);
+    sendmail(row[0][0], data.emails.grant_access);
+  } catch (err) {
+    console.error('Error reading or parsing file:', err);
+    throw err;
+  }
   return res.json({ msg: "Added successfully" });
 };
 

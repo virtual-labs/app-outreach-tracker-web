@@ -1,0 +1,14 @@
+{
+    "emails": {
+        "grant_access": {
+            "subject": "Welcome to Virtual Labs IIIT Hyderabad - Workshop Tracker Access",
+            "body": "Dear Nodal Coordinator,\nGreetings from Virtual Labs!\nWe are delighted to welcome your college as a Nodal Centre for Virtual Labs IIIT Hyderabad. Thank you for your interest in this initiative.\nYou have been granted access to our Workshop Tracker. Use the Nodal Coordinator email from your Expression of Interest document as your login credentials.\nThe portal allows you to upload workshop-related data for your Nodal Centre and View other Nodal Centres associated with Virtual Labs IIIT Hyderabad. Please refer the user document for reference.\nFor any queries, please contact us at ioc-iiith@vlabs.ac.in.\nWe look forward to a successful collaboration.",
+            "html": ""
+        },
+        "revoke_access": {
+            "subject": "Renew Access for Virtual Labs Workshop Tracker",
+            "body": "Dear Nodal Coordinator,\nGreetings from Virtual Labs IIIT Hyderabad!\nWe are writing to follow up on the access to the Virtual Labs IIIT Hyderabad Workshop Tracker.\nAccess to the Workshop Tracker has been temporarily disabled. To regain access, please renew your role by submitting an Expression of Interest document for the current year.\nFor any queries, please contact us at ioc-iiith@vlabs.ac.in.",
+            "html": ""
+        }
+    }
+}

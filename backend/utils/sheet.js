@@ -267,18 +267,24 @@ const getInstitutes_ = async () => {
 };
 
 const sendmail = require("../mail");
+const fs = require('fs').promises;
 
 const deleteFromSheet = async (rowIndex, table) => {
   // console.log(table);
   const result = getUsers_();
   result.then(value => {
-    // console.log(value); // Outputs: Operation complete
-    const subject = "Offboarding";
-    const email = value.rows[rowIndex-1]['User Email'];
-    const role = value.rows[rowIndex-1].Role;
-    const center = value.rows[rowIndex-1]['Nodal Center'];
-    const text = `Greetings from Virtual Labs. You have been removed from being a ${role} in our system in the institution ${center}`;
-    sendmail(subject, email, text);
+  const email = value.rows[rowIndex - 1]['User Email'];
+    (async () => {
+      try {
+        const path = require('path');
+        const jsonString = await fs.readFile(path.join(__dirname, '..', 'template_mail.json'), 'utf8');
+        const data = JSON.parse(jsonString);
+        sendmail(email, data.emails.revoke_access);
+      } catch (err) {
+        console.error('Error reading or parsing file:', err);
+        throw err;
+      }
+    })();
 
     (async () => {
       try {

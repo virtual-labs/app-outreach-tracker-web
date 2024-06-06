@@ -29,9 +29,9 @@ The Outreach tool utilizes Google OAuth authentication for user authentication. 
 
 Google Sheets is used as the data source for the Outreach tool. Developers need to provide editor access to the Google service account specified in `backend/secrets/service-account-secret.json`. This service account is used to read data from the Google Sheet.
 
-### Sender Address
+## Templates for mails
 
-Developers must copy the format from `/backend/senderdetails.json` and update the variables in `backend/secrets/sendermail.json` in order for the emailing functionality to work.
+The mailing functionality utilizes the template_mail.json file located in the backend folder. This file includes contexts for adding and removing a user. To accommodate additional contexts, update this file accordingly.
 
 ## Development Environment Setup
 
@@ -40,7 +40,7 @@ Developers can set up their local development environment using the following st
 1. Clone the repository from GitHub.
 2. Navigate to the project directory.
 3. Navigate to frontend folder. Install frontend dependencies using `npm install` or `yarn install`.
-4. Copy `example.env` to `.env` and update the environment variables.
+4. Copy `example.env` to `.env` and update the environment variables. Ensure the the email account being used here has enabled access to 3rd party applications.
 5. Navigate to backend folder. Install backend dependencies using `npm install` or `yarn install` in the `backend` directory.
 6. Add the Google service account secret file to `backend/secrets/service-account-secret.json`.
 7. Copy `example.env` to `.env` and update the environment variables.
