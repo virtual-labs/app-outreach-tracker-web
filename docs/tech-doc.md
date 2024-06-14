@@ -33,6 +33,10 @@ Google Sheets is used as the data source for the Outreach tool. Developers need 
 
 The mailing functionality utilizes the template_mail.json file located in the backend folder. This file includes contexts for adding and removing a user. To accommodate additional contexts, update this file accordingly.
 
+## Email Account Setup for App Email Functionality
+
+To set up email functionality, the .env file must contain the sender's email ID and password. For Gmail accounts, the "Allow less secure apps" option must be enabled. This option can only be enabled if two-factor authentication (2FA) is disabled; it cannot be granted if 2FA is enabled. For non-Gmail accounts, no additional permissions are needed, and providing the correct email address and password in the .env file is sufficient.
+
 ## Development Environment Setup
 
 Developers can set up their local development environment using the following steps:
@@ -40,7 +44,7 @@ Developers can set up their local development environment using the following st
 1. Clone the repository from GitHub.
 2. Navigate to the project directory.
 3. Navigate to frontend folder. Install frontend dependencies using `npm install` or `yarn install`.
-4. Copy `example.env` to `.env` and update the environment variables. Ensure the the email account being used here has enabled access to 3rd party applications.
+4. Copy `example.env` to `.env` and update the environment variables.
 5. Navigate to backend folder. Install backend dependencies using `npm install` or `yarn install` in the `backend` directory.
 6. Add the Google service account secret file to `backend/secrets/service-account-secret.json`.
 7. Copy `example.env` to `.env` and update the environment variables.

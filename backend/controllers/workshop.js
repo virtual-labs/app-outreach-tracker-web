@@ -85,10 +85,10 @@ const addUser = async (req, res) => {
     const path = require('path');
     const jsonString = await fs.readFile(path.join(__dirname, '..', 'template_mail.json'), 'utf8');
     const data = JSON.parse(jsonString);
-    sendmail(row[0][0], data.emails.grant_access);
+    sendmail(row[0][0], data.emails.access_grant);
   } catch (err) {
     console.error('Error reading or parsing file:', err);
-    throw err;
+    return res.json({ msg: "Error reading or parsing file" });
   }
   return res.json({ msg: "Added successfully" });
 };

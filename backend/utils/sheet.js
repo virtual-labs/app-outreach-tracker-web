@@ -279,10 +279,10 @@ const deleteFromSheet = async (rowIndex, table) => {
         const path = require('path');
         const jsonString = await fs.readFile(path.join(__dirname, '..', 'template_mail.json'), 'utf8');
         const data = JSON.parse(jsonString);
-        sendmail(email, data.emails.revoke_access);
+        sendmail(email, data.emails.access_revoke);
       } catch (err) {
         console.error('Error reading or parsing file:', err);
-        throw err;
+        return;
       }
     })();
 
