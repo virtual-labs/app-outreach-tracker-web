@@ -5,7 +5,7 @@
 1. [Introduction](#introduction)
 2. [Definitions](#definitions)
 3. [User Privileges](#user-privileges)
-4. [Walkthrough of the Workshop Tracker](#walkthrough-of-the-outreach-tool)
+4. [Walkthrough of the Workshop Tracker](#walkthrough-of-the-workshop-tracker)
    - [Logging In](#logging-in)
    - [Dashboard](#dashboard)
    - [Managing Workshops](#managing-workshops)
