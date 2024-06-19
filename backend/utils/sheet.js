@@ -270,69 +270,73 @@ const sendmail = require("../mail");
 const fs = require('fs').promises;
 
 const deleteFromSheet = async (rowIndex, table) => {
-  // console.log(table);
-  const result = getUsers_();
-  result.then(value => {
-  const email = value.rows[rowIndex - 1]['User Email'];
-    (async () => {
-      try {
-        const path = require('path');
-        const jsonString = await fs.readFile(path.join(__dirname, '..', 'template_mail.json'), 'utf8');
-        const data = JSON.parse(jsonString);
-        sendmail(email, data.emails.access_revoke);
-      } catch (err) {
-        console.error('Error reading or parsing file:', err);
-        return;
-      }
-    })();
+  try {
+    const result = await getUsers_();
+    const email = result.rows[rowIndex - 1]['User Email'];
 
-    (async () => {
-      try {
-        const auth = new google.auth.GoogleAuth({
-          keyFile: SERVICE_ACCOUNT_SECRET_FILE,
-          scopes: "https://www.googleapis.com/auth/spreadsheets",
-        });
-        const authClientObject = await auth.getClient();
-        const googleSheetsInstance = google.sheets({
-          version: "v4",
-          auth: authClientObject,
-        });
+    const sendMailPromise = sendMail(email);
+    const deleteRowPromise = deleteRow(rowIndex, table);
 
-        const spreadsheet = await googleSheetsInstance.spreadsheets.get({
-          spreadsheetId: SPREADSHEET_ID,
-        });
-        const sheets = spreadsheet.data.sheets;
-        const sheet = sheets.find(
-          (s) => s.properties.title === tableSheetMap[table]
-        );
-        const sheetId = sheet.properties.sheetId;
-
-        const result = await googleSheetsInstance.spreadsheets.batchUpdate({
-          spreadsheetId: SPREADSHEET_ID,
-          resource: {
-            requests: [
-              {
-                deleteDimension: {
-                  range: {
-                    sheetId: sheetId,
-                    dimension: "ROWS",
-                    startIndex: rowIndex,
-                    endIndex: rowIndex + 1,
-                  },
-                },
-              },
-            ],
-          },
-        });
-        return result.data;
-      } catch (error) {
-        console.log(error);
-        throw new Error(error.message);
-      }
-    })();
-  }).catch(error => {
+    await Promise.all([sendMailPromise, deleteRowPromise]);
+  } catch (error) {
     console.error(error);
-  });
+  }
+};
+
+const sendMail = async (email) => {
+  try {
+    const path = require('path');
+    const jsonString = await fs.readFile(path.join(__dirname, '..', 'template_mail.json'), 'utf8');
+    const data = JSON.parse(jsonString);
+    await sendmail(email, data.emails.access_revoke);
+  } catch (err) {
+    console.error('Error reading or parsing file:', err);
+  }
+};
+
+const deleteRow = async (rowIndex, table) => {
+  try {
+    const auth = new google.auth.GoogleAuth({
+      keyFile: SERVICE_ACCOUNT_SECRET_FILE,
+      scopes: "https://www.googleapis.com/auth/spreadsheets",
+    });
+    const authClientObject = await auth.getClient();
+    const googleSheetsInstance = google.sheets({
+      version: "v4",
+      auth: authClientObject,
+    });
+
+    const spreadsheet = await googleSheetsInstance.spreadsheets.get({
+      spreadsheetId: SPREADSHEET_ID,
+    });
+    const sheets = spreadsheet.data.sheets;
+    const sheet = sheets.find(
+      (s) => s.properties.title === tableSheetMap[table]
+    );
+    const sheetId = sheet.properties.sheetId;
+
+    const result = await googleSheetsInstance.spreadsheets.batchUpdate({
+      spreadsheetId: SPREADSHEET_ID,
+      resource: {
+        requests: [
+          {
+            deleteDimension: {
+              range: {
+                sheetId: sheetId,
+                dimension: "ROWS",
+                startIndex: rowIndex,
+                endIndex: rowIndex + 1,
+              },
+            },
+          },
+        ],
+      },
+    });
+    return result.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
 };
 
 const updateRow = async (spreadsheetId, sheetName, data, rowIndex) => {
