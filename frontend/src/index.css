@@ -18,15 +18,29 @@ code {
 
 .footer {
   background-color: #00ac8e;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
 }
 
 .landpage-container {
   background-color: rgba(0, 201, 168, 0.8);
-  border-radius: 20px;
-  padding: 5px;
+  border-radius: 5%;
+  padding: 0.1%;
   width: 30%;
   height: 40%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: auto;
+}
+
+@media (max-width: 767px) {
+  .landpage-container {
+    top: 40vh;
+    width: 75%;
+    height: 45vh;
+  }
 }
 
 .lnOUep {

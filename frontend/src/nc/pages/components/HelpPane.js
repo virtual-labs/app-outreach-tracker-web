@@ -28,7 +28,7 @@ const HelpPane = ({ setViewHelp }) => {
 
   return (
     <div className="host-req absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 h-full flex items-center justify-center z-1150">
-      <div className="flex flex-col bg-white h-4/5 w-4/5 add-lab-container p-2">
+      <div className="flex flex-col bg-white w-4/5 help-container h-4/5 p-2">
         <div className="flex flex-row justify-end">
           <span
             className="text-2xl cursor-pointer hover:text-red-600 active:text-red-800"

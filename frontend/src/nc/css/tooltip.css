@@ -107,3 +107,18 @@
 .page-label:hover {
     background-color: #005a4f;
 }
+
+@media (max-width: 767px) {
+    .tooltip {
+        display: none;
+    }
+
+    .tooltip-profile {
+        width: 200px;
+    }
+
+    .profile-icon {
+        display: flex-end;
+        right: 0;
+    }
+}

@@ -29,6 +29,16 @@ The Outreach tool utilizes Google OAuth authentication for user authentication. 
 
 Google Sheets is used as the data source for the Outreach tool. Developers need to provide editor access to the Google service account specified in `backend/secrets/service-account-secret.json`. This service account is used to read data from the Google Sheet.
 
+## Templates for mails
+
+The mailing functionality utilizes the template_mail.json file located in the backend folder. This file includes contexts for adding and removing a user. To accommodate additional contexts, update this file accordingly.
+
+The `template_mail.json` file includes various email contexts. Each context consists of a subject, body, and HTML content. If the HTML content is a null string, the body text will be used instead. When both body and HTML content are present, only the HTML content will be utilized.
+
+## Email Account Setup for App Email Functionality
+
+To set up email functionality, the .env file must contain the sender's email ID and password. For Gmail accounts, the "Allow less secure apps" option must be enabled. This option can only be enabled if two-factor authentication (2FA) is disabled; it cannot be granted if 2FA is enabled. For non-Gmail accounts, no additional permissions are needed, and providing the correct email address and password in the .env file is sufficient.
+
 ## Development Environment Setup
 
 Developers can set up their local development environment using the following steps:

@@ -17,7 +17,7 @@
 
 ## Introduction
 
-The [Workshop Tracker](https://outreach.vlabs.ac.in/) is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows nodal coordinators from various institutes to access and maintain workshop information efficiently.
+The [Workshop Tracker ](https://outreach.vlabs.ac.in/) is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows nodal coordinators from various institutes to access and maintain workshop information efficiently.
 
 ## Definitions
    - Workshop: The workshop will be a hands-on session introducing Virtual Labs to students and faculty. It will include demos of experiments to help everyone understand the navigation process.
@@ -84,7 +84,7 @@ The Nodal Coordinator can access the feedback form links to collect the data fro
 
 ### Logging Out
 
-The Nodal Coordinator can log out of the Workshop Reporting tool by clicking on the logout button located in the navigation menu. This ensures the security of their account and data.
+The Nodal Coordinator can log out of the Workshop Tracker by clicking on the logout button located in the navigation menu. This ensures the security of their account and data.
 
 ![Logout](./img/dash.png)
 

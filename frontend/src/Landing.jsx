@@ -37,7 +37,7 @@ const Landing = () => {
 
         {/* Main Content Section */}
         <div className="flex-1 text-center py-0 relative">
-          <img src={BackImg} className=" object-cover" />
+          <img src={BackImg} className="object-cover w-full h-screen" />
 
           {/* Content Over the Cover Image */}
           <div className="landpage-container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">
@@ -65,7 +65,7 @@ const Landing = () => {
         </div>
 
         {/* Footer */}
-        <div className="footer text-white text-center py-4">
+        <div className="footer text-white text-center py-2">
           <p>&copy; 2024 Virtual Labs. All rights reserved.</p>
         </div>
       </div>
