@@ -10,28 +10,29 @@ const SummaryBlock = ({ rows, visible }) => {
   }, 0);
 
   return (
-    <div className={`${"flex-1 m-2" ? visible : null}`}>
+    <div className={`${visible ? "flex-1" : ""}`}>
       {visible ? (
-        <div className="font-bold	 bg-gray-100 h-full p-1  rounded">
-          <label className="bold">Summary</label>
-          <div className="flex flex-row justify-start p-2">
-            <div className="flex flex-col mx-2 p-2 bg-gray-200 rounded m-1">
-              <span>Total Participants</span>
-              <span>{total_p}</span>
-            </div>
-            <div className="flex flex-col mx-2 p-2 bg-gray-200 rounded m-1">
-              <span>Total Recorded</span>
-              <span>{total_r}</span>
-            </div>
-            <div className="flex flex-col mx-2 p-2 bg-gray-200 rounded m-1">
-              <span>Total Workshops</span>
-              <span>{total}</span>
+        <div className="w-64 mx-auto">
+          <div className="bg-gray-100 rounded-lg p-4 pt-0.5 w-full max-w-sm">
+            <h2 className="text-xl font-bold text-gray-800 mt-2 mb-2">Workshop Statistics</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600">Total Participants:</span>
+                <span className="font-semibold text-blue-600">{total_p}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600">Total Recorded:</span>
+                <span className="font-semibold text-green-600">{total_r}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600">Total Workshops:</span>
+                <span className="font-semibold text-purple-600">{total}</span>
+              </div>
             </div>
           </div>
         </div>
       ) : null}
-    </div>
-  );
+    </div>);
 };
 
 export default SummaryBlock;
