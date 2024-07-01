@@ -2,18 +2,21 @@
 
 ## Quick Access
 
-1. [Introduction](#introduction)
-2. [Definitions](#definitions)
-3. [User Privileges](#user-privileges)
-4. [Walkthrough of Workshop Tracker](#walkthrough-of-the-workshop-tracker)
-   - [Logging In](#logging-in)
-   - [Dashboard](#dashboard)
-   - [Managing Workshops](#managing-workshops)
-   - [Managing Templates](#managing-templates)
-   - [Managing Users and Institutes](#managing-users-and-institutes)
-   - [Managing Feedback Links](#managing-feedback-links)
-   - [Logging Out](#logging-out)
-5. [Support and Updates](#support-and-updates)
+- [Workshop Tracker - Nodal Coordinator Guide](#workshop-tracker---nodal-coordinator-guide)
+  - [Quick Access](#quick-access)
+  - [Introduction](#introduction)
+  - [Definitions](#definitions)
+  - [User Privileges](#user-privileges)
+  - [On-Boarding Process](#on-boarding-process)
+  - [Walkthrough of the Workshop Tracker](#walkthrough-of-the-workshop-tracker)
+    - [Logging In](#logging-in)
+    - [Dashboard](#dashboard)
+    - [Managing Workshops](#managing-workshops)
+    - [Viewing Templates](#viewing-templates)
+    - [Viewing Nodal Centers](#viewing-nodal-centers)
+    - [Viewing Feedback Links](#viewing-feedback-links)
+    - [Logging Out](#logging-out)
+  - [Support and Updates](#support-and-updates)
 
 ## Introduction
 
@@ -50,43 +53,61 @@ Upon being appointed as the Nodal Coordinator, access to the portal is granted t
 
 Upon navigating to the [Workshop Tracker](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), Nodal coordinators will be presented with the login page. You can log in using their Google credentials.
 
-![Login Page](./img/login.png)
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/login.png"/></center>
+
+Mobile View:
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/login_mobile.png" style="height: 400px"/></center>
 
 ### Dashboard
 
 After successful login, you will be logged into the Nodal Coordinator dashboard. The dashboard provides an overview of workshops and other relevant information.
 
-![Dashboard](./img/dash.png)
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/dash.png"/></center>
+
+Mobile View:
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/dash_mobile.png" style="height: 400px"/></center>
 
 ### Managing Workshops
 
 Nodal Coordinator can manage their workshops by adding, editing, or deleting workshop records. They can also view detailed information about each workshop.
 
-![Dashboard](./img/dash.png)
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/dash.png"/></center>
+
+Mobile View:
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/dash_mobile.png" style="height: 400px"/></center>
 
 ### Viewing Templates
 
 Nodal Coordinators can view different templates for workshop records to streamline data entry and ensure consistency. 
 
-![Templates](./img/template.png)
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/template.png"/></center>
+
+Mobile View:
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/template_mobile.png" style="height: 400px"/></center>
 
 ### Viewing Nodal Centers
 
 Nodal Coordinators can view other registered nodal centers.
 
-![Users](./img/ins.png)
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/ins.png"/></center>
+
+Mobile View:
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/ins_mobile.png" style="height: 400px"/></center>
 
 ### Viewing Feedback Links
 
 The Nodal Coordinator can access the feedback form links to collect the data from workshops. This feature allows for easy access to feedback forms and data collection.
 
-![Users](./img/fl.png)
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/fl.png"/></center>
 
 ### Logging Out
 
 The Nodal Coordinator can log out of the Workshop Tracker by clicking on the logout button located in the navigation menu. This ensures the security of their account and data.
 
-![Logout](./img/dash.png)
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/dash.png"/></center>
+
+Mobile View:
+<center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/dash_mobile.png" style="height: 400px"/></center>
 
 ## Support and Updates
 

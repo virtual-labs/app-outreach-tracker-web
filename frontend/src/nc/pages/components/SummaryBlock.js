@@ -14,7 +14,7 @@ const SummaryBlock = ({ rows, visible }) => {
       {visible ? (
         <div className="w-64 mx-auto">
           <div className="bg-gray-100 rounded-lg p-4 pt-0.5 w-full max-w-sm">
-            <h2 className="text-xl font-bold text-gray-800 mt-2 mb-2">Workshop Statistics</h2>
+            <h2 className="font-bold text-gray-800 mt-2 mb-2" style={{ fontSize: '17px' }}>Summary</h2>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">Total Participants:</span>

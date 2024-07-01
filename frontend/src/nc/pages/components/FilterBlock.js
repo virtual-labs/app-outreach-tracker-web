@@ -70,6 +70,9 @@ const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
         <div className="p-2 bg-gray-200 rounded m-1">
           <label>Date</label>
           <div className="flex flex-row">
+            <div className="flex flex-col">
+            From:
+            <br/>
             <ReactDatePicker
               selected={dateInterval.start}
               onChange={(date) => {
@@ -79,6 +82,9 @@ const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
               className={"w-24 " + SelectStyle}
               disabled={dateColumn === ""}
             />
+            </div>
+            <div className="flex flex-col">
+              <br/>
             <select
               className={"w-28 " + SelectStyle}
               onChange={(e) => {
@@ -94,6 +100,9 @@ const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
                 </option>
               ))}
             </select>
+            </div>
+            <div className="flex flex-col">
+            To:
             <ReactDatePicker
               selected={dateInterval.end}
               onChange={(date) => {
@@ -103,6 +112,7 @@ const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
               className={"w-24 " + SelectStyle}
               disabled={dateColumn === ""}
             />
+            </div>
           </div>
         </div>
       }
@@ -137,6 +147,10 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
       {
         <div className="p-2 bg-gray-200 rounded m-1">
           <label>Number</label>
+          {/* <div className="flex flex-row justify-between">
+          <p>From:</p>
+          <p>To:</p>
+          </div> */}
           <input
             type="number"
             value={leftVal}
