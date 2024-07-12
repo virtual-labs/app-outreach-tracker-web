@@ -22,12 +22,13 @@ const SummaryBlock = ({ rows, visible }) => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">Total Recorded:</span>
-                <span className="font-semibold text-green-600">{total_r}</span>
+                <span className="font-semibold text-blue-600">{total_r}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-600">Total Workshops:</span>
-                <span className="font-semibold text-purple-600">{total}</span>
+                <span className="font-semibold text-blue-600">{total}</span>
               </div>
+              <div className="my-6"></div>
             </div>
           </div>
         </div>

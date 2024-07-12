@@ -15,30 +15,32 @@ const FilterBlock = ({ rawColumns, setRows, origRows }) => {
       col.value !== ""
   );
   return (
-    <div className="bg-gray-100 font-bold	 p-1  rounded m-2">
-      <label>Filters</label>
-      <div className="flex flex-row">
-        {dateColumns.length > 0 && (
-          <DateFilterPane
-            dateColumns={dateColumns}
-            setRows={setRows}
-            origRows={origRows}
-          />
-        )}
-        {numberColumns.length > 0 && (
-          <NumberFilterPane
-            numberColumns={numberColumns}
-            setRows={setRows}
-            origRows={origRows}
-          />
-        )}
-        {stringColumns.length > 0 && (
-          <StringFilterPane
-            stringColumns={stringColumns}
-            setRows={setRows}
-            origRows={origRows}
-          />
-        )}
+    <div className="mx-auto">
+      <div className="bg-gray-100 rounded-lg p-2 pt-0.5 w-full">
+        <h2 className="font-bold text-gray-800 mt-1 mb-1" style={{ fontSize: '17px' }}>Filters</h2>
+        <div className="flex flex-row space-x-2">
+          {dateColumns.length > 0 && (
+            <DateFilterPane
+              dateColumns={dateColumns}
+              setRows={setRows}
+              origRows={origRows}
+            />
+          )}
+          {numberColumns.length > 0 && (
+            <NumberFilterPane
+              numberColumns={numberColumns}
+              setRows={setRows}
+              origRows={origRows}
+            />
+          )}
+          {stringColumns.length > 0 && (
+            <StringFilterPane
+              stringColumns={stringColumns}
+              setRows={setRows}
+              origRows={origRows}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -71,47 +73,45 @@ const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
           <label>Date</label>
           <div className="flex flex-row">
             <div className="flex flex-col">
-            From:
-            <br/>
-            <ReactDatePicker
-              selected={dateInterval.start}
-              onChange={(date) => {
-                setDateInterval({ ...dateInterval, start: date });
-                applyDateFilter(date, dateInterval.end, dateColumn);
-              }}
-              className={"w-24 " + SelectStyle}
-              disabled={dateColumn === ""}
-            />
+              <ReactDatePicker
+                selected={dateInterval.start}
+                onChange={(date) => {
+                  setDateInterval({ ...dateInterval, start: date });
+                  applyDateFilter(date, dateInterval.end, dateColumn);
+                }}
+                className={"w-24 " + SelectStyle}
+                disabled={dateColumn === ""}
+              />
+              From
             </div>
             <div className="flex flex-col">
-              <br/>
-            <select
-              className={"w-28 " + SelectStyle}
-              onChange={(e) => {
-                setDateColumn(e.target.value);
-                applyDateFilter(dateInterval.start, dateInterval.end, e.target.value);
-              }}
-              value={dateColumn}
-            >
-              <option value="">Select filter</option>
-              {dateColumns.map((col, index) => (
-                <option key={index} value={col.value}>
-                  {col.value}
-                </option>
-              ))}
-            </select>
+              <select
+                className={"w-28 " + SelectStyle}
+                onChange={(e) => {
+                  setDateColumn(e.target.value);
+                  applyDateFilter(dateInterval.start, dateInterval.end, e.target.value);
+                }}
+                value={dateColumn}
+              >
+                <option value="">Select filter</option>
+                {dateColumns.map((col, index) => (
+                  <option key={index} value={col.value}>
+                    {col.value}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex flex-col">
-            To:
-            <ReactDatePicker
-              selected={dateInterval.end}
-              onChange={(date) => {
-                setDateInterval({ ...dateInterval, end: date });
-                applyDateFilter(dateInterval.start, date, dateColumn);
-              }}
-              className={"w-24 " + SelectStyle}
-              disabled={dateColumn === ""}
-            />
+              <ReactDatePicker
+                selected={dateInterval.end}
+                onChange={(date) => {
+                  setDateInterval({ ...dateInterval, end: date });
+                  applyDateFilter(dateInterval.start, date, dateColumn);
+                }}
+                className={"w-24 " + SelectStyle}
+                disabled={dateColumn === ""}
+              />
+              To
             </div>
           </div>
         </div>
