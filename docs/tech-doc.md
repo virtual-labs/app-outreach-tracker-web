@@ -2,12 +2,18 @@
 
 ## Table of Contents
 
-1. [Frontend](#frontend)
-2. [Backend](#backend)
-   - [Authentication](#authentication)
-   - [Data Source](#data-source)
-3. [Development Environment Setup](#development-environment-setup)
-4. [Deployment](#deployment)
+- [Outreach Tool Technical Documentation](#outreach-tool-technical-documentation)
+  - [Table of Contents](#table-of-contents)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+    - [Authentication](#authentication)
+    - [Data Source](#data-source)
+  - [Templates for mails](#templates-for-mails)
+  - [Email Account Setup for App Email Functionality](#email-account-setup-for-app-email-functionality)
+  - [Development Environment Setup](#development-environment-setup)
+  - [Google Sheets Setup](#google-sheets-setup)
+  - [Deployment](#deployment)
+  - [Future Works](#future-works)
 
 ## Frontend
 
@@ -140,3 +146,9 @@ gsutil cp -r build/* gs://outreach.vlabs.ac.in
 ```
 
 Changes will be reflected in the frontend (https://outreach.vlabs.ac.in) after a few minutes.
+
+
+## Future Works
+- Take data from response sheet and populate in the tracker
+- Add functionality to download reports from workshops page and templates page
+
