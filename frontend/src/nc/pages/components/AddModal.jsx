@@ -10,6 +10,12 @@ import useStore from "../../hooks/useStore";
 
 const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
   const instituteList = useStore((state) => state.instituteList);
+  const nodalCenterData = useStore((state) => state.nodalCenterData);
+
+  const getNCIDForInstitute = (institute) => {
+    const nodalCenter = nodalCenterData.find(nc => nc["Nodal Center"] === institute);
+    return nodalCenter ? nodalCenter.NCID : "";
+  };
 
   let columns = columns_.map((col) => {
     if (table === "workshop") {
@@ -48,6 +54,8 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
         col.value.toLowerCase().includes("role")
       )
         obj[col.value] = "Coordinator";
+      else if (col.type === "select" && col.value === "Nodal Center")
+        obj[col.value] = "";
       else if (col.type === "select") obj[col.value] = inst || instituteList[0];
       else if (col.value === "Email") obj[col.value] = email;
       else obj[col.value] = "";
@@ -74,6 +82,9 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
           newErrors[column.value] = "Invalid Number";
         }
       }
+      if (table === "workshop" && column.value === "Nodal Center" && formState[column.value] === "") {
+        newErrors[column.value] = "Please select an institute";
+      }
       if (column.type === "date") {
         if (formState[column.value] === "") {
           newErrors[column.value] = "Invalid Date";
@@ -90,10 +101,30 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
   };
 
   const updateFormState = (key, value) => {
-    setFormState({ ...formState, [key]: value });
+    const newState = { ...formState, [key]: value };
+    
+    // If it's a workshop and the Institute is updated, update the NCID
+    if (table === "workshop" && key === "Nodal Center") {
+      newState["NCID"] = getNCIDForInstitute(value);
+    }
+    
+    setFormState(newState);
   };
 
   const getInput = (column) => {
+    if (table === "workshop" && column.value === "NCID") {
+      return (
+        <input
+          type="text"
+          id={column.value}
+          name="name"
+          className="search-query w-input"
+          value={formState[column.value] || ""}
+          disabled={true}
+          readOnly={true}
+        />
+      );
+    }
     if (column.type === "date") {
       return (
         <DatePicker
@@ -119,6 +150,26 @@ const AddModal = ({ setModal, table, columns_, postEndpoint, refreshFunc }) => {
       );
     }
     if (column.type === "select") {
+      if (table === "workshop" && column.value === "Nodal Center") {
+        return (
+          <select
+            className="search-query w-input"
+            name="filter"
+            onChange={(e) => updateFormState(column.value, e.target.value)}
+            value={formState[column.value]}
+          >
+            <option value="" disabled>Please select Institute</option>
+            {nodalCenterData.map((nc, index) => (
+              <option
+                key={index}
+                value={nc["Nodal Center"]}
+              >
+                {nc["Nodal Center"]}
+              </option>
+            ))}
+          </select>
+        );
+      }
       if (column.value.toLowerCase().includes("role")) {
         return (
           <select

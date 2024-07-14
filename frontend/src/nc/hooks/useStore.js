@@ -7,6 +7,8 @@ const useStore = create((set) => ({
   setInstituteList: (newList) => set({ instituteList: newList }),
   help: "",
   setHelp: (newHelp) => set({ help: newHelp }),
+  nodalCenterData: [],
+  setNodalCenterData: (data) => set({ nodalCenterData: data }),
 }));
 
 export default useStore;

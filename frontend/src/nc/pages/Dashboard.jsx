@@ -47,24 +47,31 @@ const Dashboard = () => {
   const setUser = useStore((state) => state.setUser);
   const setInstituteList = useStore((state) => state.setInstituteList);
   const setHelp = useStore((state) => state.setHelp);
+  const setNodalCenterData = useStore((state) => state.setNodalCenterData);
   const [modal, setModal] = useState(false);
   const [page, setPage] = useState("workshop");
   const [viewHelp, setViewHelp] = useState(false);
 
   useEffect(() => {
-    const T = async () => {
-      const user_ = await get(`${API_URL}/api/user`);
-      const ilist = await get(`${API_URL}/api/workshop/instituteList`);
-      setUser(user_.user);
-      setInstituteList(ilist.instituteList);
-      // https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/dev/docs/nc-help-doc.md
-      const helpContent = await axios.get(
-        "https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/nc-help-doc.md"
-      );
-
-      setHelp(helpContent.data);
+    const fetchData = async () => {
+      try {
+        const user_ = await get(`${API_URL}/api/user`);
+        const ilist = await get(`${API_URL}/api/workshop/instituteList`);
+        const nodalCenters = await get(`${API_URL}/api/workshop/getInstitutes`);
+        
+        setUser(user_.user);
+        setInstituteList(ilist.instituteList);
+        setNodalCenterData(nodalCenters.rows);
+        const helpContent = await axios.get(
+          "https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/nc-help-doc.md"
+        );
+        setHelp(helpContent.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
-    T();
+
+    fetchData();
   }, []);
 
   console.log("****New version****");
