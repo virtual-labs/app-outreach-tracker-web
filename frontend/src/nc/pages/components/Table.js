@@ -189,9 +189,9 @@ function Table({
           refreshFunc={R}
         />
       )}
-      <span className="text-xl p-2">{capitalizeFirstLetter(title_) + "s"}</span>
+      <span className="text-xl p-2"><strong>{capitalizeFirstLetter(title_) + "s"}</strong></span>
       <div className="flex flex-col md:flex-row p-2">
-        <div className="summary-filter flex flex-row p-2">
+        <div className="summary-filter flex flex-row p-2 space-x-4">
           <SummaryBlock rows={rows} visible={title === "workshop"} />
           <FilterBlock {...{ rawColumns, setRows, origRows }} />
         </div>

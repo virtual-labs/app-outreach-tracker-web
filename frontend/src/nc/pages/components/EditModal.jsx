@@ -41,7 +41,7 @@ const EditModal = ({ editObj, setEditObj, columns_, refreshFunc }) => {
 
     for (let column of columns) {
       if (column.type === "link") {
-        if (validateURL(formState[column.value])) {
+        if (formState[column.value] != "" && validateURL(formState[column.value])) {
           newErrors[column.value] = "Invalid URL";
         }
       }
@@ -56,7 +56,7 @@ const EditModal = ({ editObj, setEditObj, columns_, refreshFunc }) => {
         }
       }
 
-      if (formState[column.value] === "") {
+      if (formState[column.value] === "" && column.type != "link") {
         newErrors[column.value] = "Invalid Input";
       }
     }

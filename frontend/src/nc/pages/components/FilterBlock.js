@@ -15,30 +15,32 @@ const FilterBlock = ({ rawColumns, setRows, origRows }) => {
       col.value !== ""
   );
   return (
-    <div className="bg-gray-100 font-bold	 p-1  rounded m-2">
-      <label>Filters</label>
-      <div className="flex flex-row">
-        {dateColumns.length > 0 && (
-          <DateFilterPane
-            dateColumns={dateColumns}
-            setRows={setRows}
-            origRows={origRows}
-          />
-        )}
-        {numberColumns.length > 0 && (
-          <NumberFilterPane
-            numberColumns={numberColumns}
-            setRows={setRows}
-            origRows={origRows}
-          />
-        )}
-        {stringColumns.length > 0 && (
-          <StringFilterPane
-            stringColumns={stringColumns}
-            setRows={setRows}
-            origRows={origRows}
-          />
-        )}
+    <div className="mx-auto">
+      <div className="bg-gray-100 rounded-lg p-2 pt-0.5 w-full">
+        <h2 className="font-bold text-gray-800 mt-1 mb-1" style={{ fontSize: '17px' }}>Filters</h2>
+        <div className="flex flex-row space-x-2">
+          {dateColumns.length > 0 && (
+            <DateFilterPane
+              dateColumns={dateColumns}
+              setRows={setRows}
+              origRows={origRows}
+            />
+          )}
+          {numberColumns.length > 0 && (
+            <NumberFilterPane
+              numberColumns={numberColumns}
+              setRows={setRows}
+              origRows={origRows}
+            />
+          )}
+          {stringColumns.length > 0 && (
+            <StringFilterPane
+              stringColumns={stringColumns}
+              setRows={setRows}
+              origRows={origRows}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -49,17 +51,19 @@ const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
     start: new Date() - 7 * 24 * 60 * 60 * 100000,
     end: new Date(),
   });
-  const [dateColumn, setDateColumn] = React.useState(
-    dateColumns ? dateColumns[0].value : null
-  );
+  const [dateColumn, setDateColumn] = React.useState("");
 
-  const applyDateFilter = (start, end) => {
-    setRows(
-      origRows.filter((row) => {
-        let rowDate = new Date(row[dateColumn]);
-        return rowDate >= start && rowDate <= end;
-      })
-    );
+  const applyDateFilter = (start, end, column) => {
+    if (column === "") {
+      setRows(origRows);
+    } else {
+      setRows(
+        origRows.filter((row) => {
+          let rowDate = new Date(row[column]);
+          return rowDate >= start && rowDate <= end;
+        })
+      );
+    }
   };
 
   return (
@@ -68,41 +72,47 @@ const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
         <div className="p-2 bg-gray-200 rounded m-1">
           <label>Date</label>
           <div className="flex flex-row">
-            <ReactDatePicker
-              selected={dateInterval && dateInterval.start}
-              onChange={(date) => {
-                setDateInterval({ ...dateInterval, start: date });
-                applyDateFilter(date, dateInterval.end);
-              }}
-              className={"w-24 " + SelectStyle}
-            />
-            <select
-              className={"w-28 " + SelectStyle}
-              onChange={(e) => {
-                setDateColumn(e.target.value);
-                applyDateFilter(dateInterval.start, dateInterval.end);
-              }}
-            >
-              {dateColumns.map((col, index) => {
-                return (
-                  <option
-                    key={index}
-                    value={col.value}
-                    selected={dateColumn === col.value}
-                  >
+            <div className="flex flex-col">
+              <ReactDatePicker
+                selected={dateInterval.start}
+                onChange={(date) => {
+                  setDateInterval({ ...dateInterval, start: date });
+                  applyDateFilter(date, dateInterval.end, dateColumn);
+                }}
+                className={"w-24 " + SelectStyle}
+                disabled={dateColumn === ""}
+              />
+              From
+            </div>
+            <div className="flex flex-col">
+              <select
+                className={"w-28 " + SelectStyle}
+                onChange={(e) => {
+                  setDateColumn(e.target.value);
+                  applyDateFilter(dateInterval.start, dateInterval.end, e.target.value);
+                }}
+                value={dateColumn}
+              >
+                <option value="">Select filter</option>
+                {dateColumns.map((col, index) => (
+                  <option key={index} value={col.value}>
                     {col.value}
                   </option>
-                );
-              })}
-            </select>
-            <ReactDatePicker
-              selected={dateInterval && dateInterval.end}
-              onChange={(date) => {
-                setDateInterval({ ...dateInterval, end: date });
-                applyDateFilter(dateInterval.start, date);
-              }}
-              className={"w-24 " + SelectStyle}
-            />
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col">
+              <ReactDatePicker
+                selected={dateInterval.end}
+                onChange={(date) => {
+                  setDateInterval({ ...dateInterval, end: date });
+                  applyDateFilter(dateInterval.start, date, dateColumn);
+                }}
+                className={"w-24 " + SelectStyle}
+                disabled={dateColumn === ""}
+              />
+              To
+            </div>
           </div>
         </div>
       }
@@ -113,18 +123,20 @@ const DateFilterPane = ({ dateColumns, setRows, origRows }) => {
 const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
   const [leftVal, setLeftVal] = React.useState(0);
   const [rightVal, setRightVal] = React.useState(1000);
-  const [numberColumn, setNumberColumn] = React.useState(
-    numberColumns[0] ? numberColumns[0].value : null
-  );
+  const [numberColumn, setNumberColumn] = React.useState("");
 
   const applyNumberFilter = (leftVal_, numberColumn_, rightVal_) => {
-    setRows(
-      origRows.filter((row) => {
-        return (
-          row[numberColumn_] >= leftVal_ && row[numberColumn_] <= rightVal_
-        );
-      })
-    );
+    if (numberColumn_ === "") {
+      setRows(origRows);
+    } else {
+      setRows(
+        origRows.filter((row) => {
+          return (
+            row[numberColumn_] >= leftVal_ && row[numberColumn_] <= rightVal_
+          );
+        })
+      );
+    }
     setLeftVal(leftVal_);
     setRightVal(rightVal_);
     setNumberColumn(numberColumn_);
@@ -135,6 +147,10 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
       {
         <div className="p-2 bg-gray-200 rounded m-1">
           <label>Number</label>
+          {/* <div className="flex flex-row justify-between">
+          <p>From:</p>
+          <p>To:</p>
+          </div> */}
           <input
             type="number"
             value={leftVal}
@@ -142,6 +158,7 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
               applyNumberFilter(e.target.value, numberColumn, rightVal)
             }
             className={SelectStyle + " w-20"}
+            disabled={numberColumn === ""}
           />
           {"<"}
           <select
@@ -149,18 +166,14 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
               applyNumberFilter(leftVal, e.target.value, rightVal)
             }
             className={SelectStyle + " w-36"}
+            value={numberColumn}
           >
-            {numberColumns.map((col, index) => {
-              return (
-                <option
-                  key={index}
-                  value={col.value}
-                  selected={numberColumn === col.value}
-                >
-                  {col.value}
-                </option>
-              );
-            })}
+            <option value="">Select filter</option>
+            {numberColumns.map((col, index) => (
+              <option key={index} value={col.value}>
+                {col.value}
+              </option>
+            ))}
           </select>
           {"<"}
           <input
@@ -170,6 +183,7 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
               applyNumberFilter(leftVal, numberColumn, e.target.value)
             }
             className={SelectStyle + " w-20"}
+            disabled={numberColumn === ""}
           />
         </div>
       }
@@ -179,21 +193,19 @@ const NumberFilterPane = ({ numberColumns, setRows, origRows }) => {
 
 const StringFilterPane = ({ stringColumns, setRows, origRows }) => {
   const [str, setStr] = React.useState("");
-  const [stringColumn, setStringColumn] = React.useState(
-    stringColumns[0] ? stringColumns[0].value : null
-  );
+  const [stringColumn, setStringColumn] = React.useState("");
 
-  const applyNumberFilter = (stringColumn_, val) => {
-    if (!stringColumn_) {
+  const applyStringFilter = (stringColumn_, val) => {
+    if (stringColumn_ === "") {
       setRows(origRows);
-      return;
+    } else {
+      const lowerVal = val.toLowerCase();
+      setRows(
+        origRows.filter((row) => {
+          return row[stringColumn_].toLowerCase().includes(lowerVal);
+        })
+      );
     }
-    const lowerVal = val.toLowerCase();
-    setRows(
-      origRows.filter((row) => {
-        return row[stringColumn_].toLowerCase().includes(lowerVal);
-      })
-    );
     setStr(val);
     setStringColumn(stringColumn_);
   };
@@ -204,27 +216,24 @@ const StringFilterPane = ({ stringColumns, setRows, origRows }) => {
         <div className="p-2 bg-gray-200 rounded m-1">
           <label className="text-gray-700 ">String</label>
           <select
-            onChange={(e) => applyNumberFilter(e.target.value, str)}
+            onChange={(e) => applyStringFilter(e.target.value, str)}
             className={SelectStyle}
+            value={stringColumn}
           >
-            {stringColumns.map((col, index) => {
-              return (
-                <option
-                  key={index}
-                  value={col.value}
-                  selected={stringColumn === col.value}
-                >
-                  {col.value}
-                </option>
-              );
-            })}
+            <option value="">Select filter</option>
+            {stringColumns.map((col, index) => (
+              <option key={index} value={col.value}>
+                {col.value}
+              </option>
+            ))}
           </select>
           <input
             type="text"
             value={str}
-            onChange={(e) => applyNumberFilter(stringColumn, e.target.value)}
+            onChange={(e) => applyStringFilter(stringColumn, e.target.value)}
             className={SelectStyle + " w-30"}
             placeholder="Search"
+            disabled={stringColumn === ""}
           />
         </div>
       }
