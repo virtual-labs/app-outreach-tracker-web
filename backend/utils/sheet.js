@@ -60,9 +60,14 @@ const getUsersList = async () => {
   const admins = [];
   const coordinators = [];
 
+  // console.log(usersList);
+
   usersList.forEach((user, i) => {
     if (i === 0) return;
     const fuser = {};
+    // console.log(user.values[0]);
+    // console.log(user.values[1]);
+    // console.log(user.values[2]);
     fuser.email = user.values[0].userEnteredValue.stringValue;
     fuser.role = user.values[1].userEnteredValue.stringValue;
     fuser.institute = user.values[2].userEnteredValue.stringValue;
@@ -73,6 +78,8 @@ const getUsersList = async () => {
       coordinators.push(fuser);
     }
   });
+  // console.log(admins);
+  // console.log(coordinators);
   return { admins, coordinators };
 };
 
@@ -194,11 +201,11 @@ const getRow = (values, columns, rawData) => {
       return;
     }
     if (col.type === "number") {
-      rowObj[col.value] = values[index].userEnteredValue.numberValue;
+      rowObj[col.value] = values[index]?.userEnteredValue?.numberValue;
       return;
     }
     rowObj[col.value] =
-      values[index].userEnteredValue.stringValue || rawData[index];
+      values[index]?.userEnteredValue?.stringValue || rawData[index];
   });
   return rowObj;
 };
@@ -267,12 +274,12 @@ const getInstitutes_ = async () => {
 };
 
 const sendmail = require("../mail");
-const fs = require('fs').promises;
+const fs = require("fs").promises;
 
 const deleteFromSheet = async (rowIndex, table) => {
   try {
     const result = await getUsers_();
-    const email = result.rows[rowIndex - 1]['User Email'];
+    const email = result.rows[rowIndex - 1]["User Email"];
 
     const sendMailPromise = sendMail(email);
     const deleteRowPromise = deleteRow(rowIndex, table);
@@ -285,12 +292,15 @@ const deleteFromSheet = async (rowIndex, table) => {
 
 const sendMail = async (email) => {
   try {
-    const path = require('path');
-    const jsonString = await fs.readFile(path.join(__dirname, '..', 'template_mail.json'), 'utf8');
+    const path = require("path");
+    const jsonString = await fs.readFile(
+      path.join(__dirname, "..", "template_mail.json"),
+      "utf8"
+    );
     const data = JSON.parse(jsonString);
     await sendmail(email, data.emails.access_revoke);
   } catch (err) {
-    console.error('Error reading or parsing file:', err);
+    console.error("Error reading or parsing file:", err);
   }
 };
 
@@ -371,6 +381,7 @@ const getFeedbackLinks = async () => {
     "RAW"
   );
   const linkList = usersData.data.sheets[0].data[0].rowData;
+  // console.log(JSON.stringify(linkList, null, 2));
   return getTableData(linkList, rawData);
 };
 
