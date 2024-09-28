@@ -1,14 +1,14 @@
-# Workshop Tracker - Nodal Coordinator Guide
+# Outreach Tracker - Nodal Coordinator Guide
 
 ## Quick Access
 
-- [Workshop Tracker - Nodal Coordinator Guide](#workshop-tracker---nodal-coordinator-guide)
+- [Outreach Tracker - Nodal Coordinator Guide](#outreach-tracker---nodal-coordinator-guide)
   - [Quick Access](#quick-access)
   - [Introduction](#introduction)
   - [Definitions](#definitions)
   - [User Privileges](#user-privileges)
   - [On-Boarding Process](#on-boarding-process)
-  - [Walkthrough of the Workshop Tracker](#walkthrough-of-the-workshop-tracker)
+  - [Walkthrough of the Outreach Tracker](#walkthrough-of-the-outreach-tracker)
     - [Logging In](#logging-in)
     - [Dashboard](#dashboard)
     - [Managing Workshops](#managing-workshops)
@@ -20,7 +20,7 @@
 
 ## Introduction
 
-The [Workshop Tracker ](https://outreach.vlabs.ac.in/) is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows nodal coordinators from various institutes to access and maintain workshop information efficiently.
+The [Outreach Tracker ](https://outreach.vlabs.ac.in/) is designed to facilitate the storage and management of workshop data for Virtual Labs. It allows nodal coordinators from various institutes to access and maintain workshop information efficiently.
 
 ## Definitions
    - Workshop: The workshop will be a hands-on session introducing Virtual Labs to students and faculty. It will include demos of experiments to help everyone understand the navigation process.
@@ -47,11 +47,11 @@ The [Workshop Tracker ](https://outreach.vlabs.ac.in/) is designed to facilitate
 
 Upon being appointed as the Nodal Coordinator, access to the portal is granted to you using the email provided in the Expression of Interest Document.
 
-## Walkthrough of the Workshop Tracker
+## Walkthrough of the Outreach Tracker
 
 ### Logging In
 
-Upon navigating to the [Workshop Tracker](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), Nodal coordinators will be presented with the login page. You can log in using their Google credentials.
+Upon navigating to the [Outreach Tracker](https://outreach.vlabs.ac.in/) (@ https://outreach.vlabs.ac.in), Nodal coordinators will be presented with the login page. You can log in using their Google credentials.
 
 <center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/login.png"/></center>
 
@@ -102,7 +102,7 @@ The Nodal Coordinator can access the feedback form links to collect the data fro
 
 ### Logging Out
 
-The Nodal Coordinator can log out of the Workshop Tracker by clicking on the logout button located in the navigation menu. This ensures the security of their account and data.
+The Nodal Coordinator can log out of the Outreach Tracker by clicking on the logout button located in the navigation menu. This ensures the security of their account and data.
 
 <center><img src="https://raw.githubusercontent.com/virtual-labs/app-outreach-tracker-web/main/docs/img/dash.png"/></center>
 
