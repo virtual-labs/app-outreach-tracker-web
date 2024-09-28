@@ -151,4 +151,4 @@ Changes will be reflected in the frontend (https://outreach.vlabs.ac.in) after a
 ## Future Works
 - Take data from response sheet and populate in the tracker
 - Add functionality to download reports from workshops page and templates page
-
+- Convert the Delete workshop functionality to Deactivate workshop, so that the listing can be shown without the deactivated workshops. This will avoid accidental deletion of workshop data by the nodal coordinator.
