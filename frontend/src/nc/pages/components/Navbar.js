@@ -68,7 +68,7 @@ const NavBar = ({ setModal, modal, setPage, page, hide, setViewHelp }) => {
               alt=""
             />
             <div af-el="nav-title" className="text-block">
-              Workshop Tracker
+              Virtual Labs IIIT Hyderabad Workshop Tracker
             </div>
             {!hide ? (
               <div
