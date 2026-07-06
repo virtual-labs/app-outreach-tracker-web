@@ -57,7 +57,7 @@ const NavBarSmall = ({ setModal, modal, setPage, page, hide, setViewHelp }) => {
           ) : null}
           <div af-el="nav-title" className="text-block flex-grow text-center">
             <img src={NavImg} loading="lazy" width="80" af-el="nav-img" alt="" style={{ display: 'block', margin: '0 auto' }} />
-            <strong>Workshop Tracker</strong>
+            <strong>Virtual Labs IIIT Hyderabad Workshop Tracker</strong>
           </div>
           {!hide ? (
             <ProfileBox user={user} onLogout={logout} />
