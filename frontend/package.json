@@ -29,7 +29,7 @@
     "start:prod": "REACT_APP_MODE=production react-scripts start",
     "build": "REACT_APP_MODE=development react-scripts build",
     "build:dev": "REACT_APP_MODE=development react-scripts build",
-    "build:prod": "REACT_APP_MODE=production react-scripts build",
+    "build:prod": "cross-env REACT_APP_MODE=production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "tailwindcss": "^3.4.1"
   }
 }

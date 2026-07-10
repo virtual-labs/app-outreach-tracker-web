@@ -141,6 +141,7 @@ gcloud app deploy
 
 ```bash
 cd frontend
+npm install --save-dev cross-env
 npm run build:prod
 gsutil cp -r build/* gs://outreach.vlabs.ac.in
 ```
