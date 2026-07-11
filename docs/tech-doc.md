@@ -112,6 +112,8 @@ return { value, type: "string" };
 
 ## Deployment
 
+### Note: The environment variable for both frontend and backend are stored in AWS.
+
 This app is deployed on GCP (Google Cloud Platform) using App Engine for backend and bucket for frontend.
 
 The Outreach tool can be deployed using the following steps:
