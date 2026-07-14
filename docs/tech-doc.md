@@ -43,7 +43,7 @@ The `template_mail.json` file includes various email contexts. Each context cons
 
 ## Email Account Setup for App Email Functionality
 
-To set up email functionality, the .env file must contain the sender's email ID and password. For Gmail accounts, the "Allow less secure apps" option must be enabled. This option can only be enabled if two-factor authentication (2FA) is disabled; it cannot be granted if 2FA is enabled. For non-Gmail accounts, no additional permissions are needed, and providing the correct email address and password in the .env file is sufficient.
+To set up email functionality, the .env file must contain the sender's email ID and password. For Gmail accounts, the "Allow less secure apps" option must be enabled. This option can only be enabled if two-factor authentication (2FA) is disabled; it cannot be granted if 2FA is enabled. For non-Gmail accounts, no additional permissions are needed, and providing the correct email address and password in the .env file is sufficient. The ioc-iiith@vlabs.ac.in is used for sending the email. 
 
 ## Development Environment Setup
 
@@ -112,7 +112,7 @@ return { value, type: "string" };
 
 ## Deployment
 
-### Note: The environment variable for both frontend and backend are stored in AWS.
+### Note: The environment variables defined in the example.env file for both the frontend and backend are stored in the AWS Parameter Store.
 
 This app is deployed on GCP (Google Cloud Platform) using App Engine for backend and bucket for frontend.
 
